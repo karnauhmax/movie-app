@@ -2,10 +2,19 @@
 @import "vars";
 @import "mixins";
 @import "fonts";
-@import "settings";
 @import "vendor";
+@import "settings";
 
 
 // подключения компонентов страницы
 @import "./components/header";
+@import "./components/footer";
+@import "./components/form";
+@import "./components/preloader";
+@import "./components/pagination";
+@import "./components/skeleton";
+@import "./components/loader";
 
+
+// подключения секций страницы
+@import "./sections/films";

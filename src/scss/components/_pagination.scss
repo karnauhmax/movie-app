@@ -1,0 +1,22 @@
+.pagination {
+  display: flex;
+  gap: rem(15);
+
+  &__btn {
+    color: var(--white);
+    border-bottom: 1px solid transparent;
+    transition: border-bottom .5s ease;
+
+    &:hover {
+      border-bottom: 1px solid var(--white);
+    }
+  }
+
+  li.active {
+    border-bottom: 1px solid var(--white);
+  }
+
+  &.hide {
+    display: none;
+  }
+}

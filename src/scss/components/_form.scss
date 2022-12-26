@@ -1,0 +1,46 @@
+.form {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  align-items: center;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding-right: rem(10);
+  background-color: rgba(190, 183, 183, 0.247);
+  column-gap: rem(10);
+
+  &__search {
+    padding: rem(10) rem(10) rem(10) rem(10);
+    color: var(--white);
+    font-size: rem(14);
+    min-width: rem(220);
+    background-color: transparent;
+    transition: box-shadow .5s ease;
+    border-radius: 5px;
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0px 0px 8px rgb(255, 255, 255);
+    }
+  }
+
+  &__btn {
+    width: 20px;
+    height: 20px;
+    background: url("../img/icons/search.svg") no-repeat center center / contain;
+    background-color: transparent;
+    height: 100%;
+  }
+
+  &__error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: rem(30);
+    font-weight: 900;
+    text-transform: uppercase;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,1 +1,29 @@
+.header {
+  // padding: rem(15) 0;
+  padding: 15px 0;
+  position: sticky;
+  width: 100%;
+  right: 0;
+  top: 0px;
+  background-color: rgb(46, 45, 45);
+  z-index: 50;
 
+
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: rem(20);
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  .logo {
+    font-weight: 900;
+    font-size: 35px;
+    color: var(--white);
+  }
+}

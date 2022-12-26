@@ -1,0 +1,17 @@
+.footer {
+  padding: rem(20) 0;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__link {
+    border-bottom: 1px solid white;
+    transition: border-bottom .5s ease;
+
+    &:hover {
+      border-bottom: 1px solid transparent;
+    }
+  }
+}

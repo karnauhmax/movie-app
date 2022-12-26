@@ -1,0 +1,18 @@
+.skeleton-image {
+  animation: skeleton-loading 2s linear infinite alternate;
+  color: hsl(200, 20%, 70%);
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+    color: hsl(200, 20%, 70%);
+  }
+
+  100% {
+    background-color: hsl(200, 20%, 95%);
+    color: hsl(200, 20%, 95%);
+
+
+  }
+}
