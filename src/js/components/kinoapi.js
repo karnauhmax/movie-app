@@ -1,5 +1,6 @@
-//importing pagination vars
+//imports
 import { queryParam, params, paginationList } from "./pagination";
+import renderGenres from "./renderGenres";
 
 //API vars
 
@@ -12,13 +13,20 @@ const infoTitle = document.querySelector(".films__title");
 const imgPath =
   '<img loading="lazy" src="https://image.tmdb.org/t/p/original/" class="skeleton-image" width="250" height="250"alt="">';
 
-const renderFilmsList = (dataObj) => {
+const renderDataList = (dataObj) => {
   const filmsList = dataObj.results;
   filmsInner.innerHTML = "";
   filmsList.forEach((film) => {
-    const { name, poster_path, title, vote_average, popularity, profile_path } =
-      film;
-    console.log(profile_path);
+    const {
+      name,
+      poster_path,
+      title,
+      vote_average,
+      popularity,
+      profile_path,
+      genre_ids,
+    } = film;
+    renderGenres(film);
     filmsInner.insertAdjacentHTML(
       "beforeend",
       `
@@ -74,7 +82,7 @@ const initApp = (page = 1) => {
     .then((data) => {
       loader.classList.remove("active");
       console.log(data);
-      renderFilmsList(data);
+      renderDataList(data);
       return data;
     })
     .then((data) => {
@@ -118,7 +126,7 @@ form.addEventListener("submit", (e) => {
       console.log(data);
       const { results } = data;
       if (results.length >= 1) {
-        renderFilmsList(data);
+        renderDataList(data);
       } else {
         filmsInner.innerHTML =
           "<p class='form__error'>There is no results </p>";
