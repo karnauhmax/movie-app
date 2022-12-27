@@ -9,14 +9,12 @@ const renderGenres = (item) => {
       genreItem.classList.add("films__genre");
 
       if (genreObj.id == item.genre_ids[0]) {
-        console.log(item);
+        console.log(item.title);
         genresList.forEach((genreListItem) => {
-          console.log(genreListItem);
-          const genre = document.createElement("span");
-          genre.classList.add("films__genre");
-          genre.innerHTML = genreObj.name;
-          genreListItem.appendChild(genre);
-          console.log(genreListItem);
+          const genreItem = document.createElement("span");
+          genreItem.classList.add("films__genre");
+          genreItem.innerHTML = genreObj.name;
+          genreListItem.appendChild(genreItem);
         });
       }
     });
