@@ -1,0 +1,19 @@
+.search {
+  padding-top: rem(50);
+  position: relative;
+  height: 100%;
+  display: none;
+  &.active {
+    display: block;
+  }
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(rem(250), 1fr));
+    column-gap: rem(30);
+    row-gap: rem(20);
+
+    @include mobile {
+      grid-template-columns: repeat(auto-fill, minmax(rem(200), 1fr));
+    }
+  }
+}

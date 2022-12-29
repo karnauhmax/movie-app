@@ -5,7 +5,8 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
-@import "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.3/dist/css/splide.min.css";
+@import 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.0.3/dist/css/splide.min.css';
+@import 'https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css';
 html {
   line-height: 1.15;
   /* 1 */

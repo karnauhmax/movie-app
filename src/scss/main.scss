@@ -1,20 +1,22 @@
 // базовые подключения
-@import "vars";
-@import "mixins";
-@import "fonts";
-@import "vendor";
-@import "settings";
-
+@import 'vars';
+@import 'mixins';
+@import 'fonts';
+@import 'vendor';
+@import 'settings';
 
 // подключения компонентов страницы
-@import "./components/header";
-@import "./components/footer";
-@import "./components/form";
-@import "./components/preloader";
-@import "./components/pagination";
-@import "./components/skeleton";
-@import "./components/loader";
-
+@import './components/header';
+@import './components/footer';
+@import './components/form';
+@import './components/preloader';
+@import './components/pagination';
+@import './components/skeleton';
+@import './components/loader';
+@import './components/scroll';
+@import './components/data-section';
+@import './components/item';
+@import './components/search';
 
 // подключения секций страницы
-@import "./sections/films";
+@import './sections/films';

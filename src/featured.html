@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body" data-page="featured">
+    <div class="site-container">
+      @include('partials/header.html')
+      <main class="main">
+        <section class="recomended">
+          <div class="container">
+            <!-- <h2 class="section-title recomended__title">
+            Recommended
+          </h2> -->
+          </div>
+        </section>
+
+        <!-- films -->
+
+        <section class="films data-section">
+          <div class="container">
+            <div class="data-section__wrapper">
+              <div class="data-section__heading">
+                <h2 class="section-title films__title">Popular Movies</h2>
+              </div>
+              <div
+                class="data-section__scroll"
+                data-simplebar
+                data-simplebar-auto-hide="false"
+              >
+                <div class="films__inner data-section__inner"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- films -->
+
+        <!-- preloader -->
+
+        <!-- <div class="preloader active">
+        <p class="logo">Movie App</p>
+        <div class="preloader__footer">
+          <p class="preloader__text">Made by <span>Max Karnauh</span></p>
+        </div>
+      </div> -->
+
+        <!-- preloader -->
+
+        <div class="loader active"></div>
+      </main>
+
+      @include('partials/footer.html')
+    </div>
+  </body>
+</html>

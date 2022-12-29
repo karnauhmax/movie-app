@@ -1,6 +1,7 @@
 import genres from "./genres";
 
 const genresList = document.querySelectorAll(".films__genres");
+console.log(genresList);
 
 const renderGenres = (item) => {
   if (item.genre_ids >= 1) {
