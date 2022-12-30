@@ -1,80 +1,44 @@
 //imports
-import { queryParam, params, paginationList } from './pagination';
-import renderGenres from './renderGenres';
 import renderDataList from './renderDataList';
-import genres from './genres';
-import { init } from 'aos';
-console.log(document.querySelector('.filter__genres'));
-
-//API vars
-
-const API_KEY = '2a4ef3e851f23611964f06801ffefd8a';
+import { queryParam } from './pagination';
+import { API, API_KEY } from './apikeys';
 
 //films markdown vars
+const body = document.body;
 const tvsInner = document.querySelector('.tv__inner');
 const filmsInner = document.querySelector('.films__inner');
 const loader = document.querySelector('.loader');
+const featuredInner = document.querySelector('.featured__inner');
+const movieTopRated = document.querySelector('.top-movies__inner');
+const tvTopRated = document.querySelector('.top-shows__inner');
 
-//img
-
-const imgPath =
-  '<img loading="lazy" src="https://image.tmdb.org/t/p/original/" class="skeleton-image" width="250" height="250"alt="">';
+async function fetchData(url) {
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+}
 
 //fetching movies
 
-const initMovieList = (page = 1) => {
-  const API_POPULAR_MOVIES_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
+if (body.dataset.page == 'home') {
+  fetchData(API.movies_popular).then(data => {
+    renderDataList(data, filmsInner);
+  });
 
-  fetch(API_POPULAR_MOVIES_URL, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(response => response.json())
-    .then(data => {
-      loader.classList.remove('active');
-      renderDataList(data, filmsInner);
-      return data;
-    })
-    .then(data => {
-      const total = 100;
-      const pages = Math.ceil(total / 10);
-      for (let i = pages; i >= 1; i--) {
-        paginationList.forEach(el => {
-          el.insertAdjacentHTML(
-            'afterbegin',
-            `
-          <li class="pagination__item ${i == queryParam ? 'active' : ''}">
-              <a href="?page=${i}" class="pagination__btn">${i}</a>
-            </li>
-          `
-          );
-        });
-      }
-      return data;
-    });
-};
+  //fetching tv shows list
 
-initMovieList(queryParam);
+  fetchData(API.tv_popular).then(data => {
+    renderDataList(data, tvsInner);
+  });
 
-//fetching tv shows list
+  fetchData(API.tv_topRated).then(data => {
+    renderDataList(data, tvTopRated);
+  });
 
-const initTVList = (page = 1) => {
-  const API_POPULAR_TV_URL = `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=${page}`;
-
-  fetch(API_POPULAR_TV_URL, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(response => response.json())
-    .then(data => {
-      loader.classList.remove('active');
-      renderDataList(data, tvsInner);
-    });
-};
-
-initTVList(queryParam);
+  fetchData(API.movies_topRated).then(data => {
+    renderDataList(data, movieTopRated);
+  });
+}
 
 //search logic
 
@@ -94,18 +58,50 @@ form.addEventListener('submit', e => {
   })
     .then(res => res.json())
     .then(data => {
-      const siteWrapper = document.querySelector('.site-wrapper');
+      const siteWrapper = document.querySelector('.site-content');
       const searchInner = document.querySelector('.search__inner');
-      console.log(data);
       const { results } = data;
+
       siteWrapper.innerHTML = '';
       searchInner.innerHTML = '';
+      console.log(data);
       if (results.length >= 1) {
-        renderDataList(data, document.querySelector('.search__inner'));
+        renderDataList(data, searchInner);
       } else {
         searchInner.innerHTML =
           "<p class='form__error'>There is no results </p>";
       }
-      // infoTitle.innerHTML = `Results: ${results.length}`;
     });
 });
+
+//url and query params
+
+let currentUrl = new URLSearchParams(window.location.search);
+
+let mediaType = currentUrl.get('media');
+let featured = currentUrl.get('featured');
+
+const featuredUrl = `https://api.themoviedb.org/3/${mediaType}/${featured}?api_key=${API_KEY}&language=en-US&page=1`;
+
+if (body.dataset.page == 'featured') {
+  // if (!queryParam) {
+  //   queryParam = 1;
+  //   history.pushState(null, null, '?page=1');
+  // }
+
+  fetchData(featuredUrl).then(data => {
+    renderDataList(data, featuredInner);
+
+    const featured = document.querySelector('.featured');
+    const title = featured.querySelector('.section-title');
+
+    switch (mediaType) {
+      case 'tv':
+        title.innerText = 'Popular TV Shows';
+        break;
+      case 'movie':
+        title.innerText = 'Popular Movies';
+        break;
+    }
+  });
+}

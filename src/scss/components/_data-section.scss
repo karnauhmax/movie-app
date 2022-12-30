@@ -1,16 +1,18 @@
 .data-section {
+  padding-top: rem(50);
   & .item {
     flex: 1 0 200px;
   }
 
   &__scroll {
     overflow-y: hidden;
-    padding-bottom: 50px;
+    // padding-bottom: 50px;
   }
 
   &__wrapper {
     display: grid;
     row-gap: rem(20);
+    height: 100%;
   }
 
   &__heading {
@@ -35,21 +37,35 @@
       flex-direction: row;
       flex-wrap: nowrap;
       gap: rem(30);
+      margin-bottom: 50px;
+    }
+
+    &__wrapper {
+      grid-template-rows: min-content 1fr min-content;
     }
   }
 }
 
 [data-page='featured'] {
   .data-section {
+    height: 100%;
+    & .container {
+      height: 100%;
+    }
     &__inner {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(rem(250), 1fr));
       column-gap: rem(30);
       row-gap: rem(20);
+      position: relative;
 
       @include mobile {
         grid-template-columns: repeat(auto-fill, minmax(rem(200), 1fr));
       }
+    }
+
+    &__wrapper {
+      grid-template-rows: repeat(2, min-content) 1fr min-content;
     }
   }
 }

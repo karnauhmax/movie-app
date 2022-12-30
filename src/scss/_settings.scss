@@ -2,7 +2,6 @@ html {
   box-sizing: border-box;
 }
 
-
 *,
 *::before,
 *::after {
@@ -145,11 +144,9 @@ main {
   object-fit: cover;
 }
 
-
 .global-wrapper {
   position: relative;
 }
-
 
 .locked {
   overflow: hidden;
@@ -162,4 +159,8 @@ main {
 .section-title {
   @include adaptiveValue(font-size, 40, 20, 1920, 360, 1);
   font-weight: 900;
+}
+
+.site-content {
+  height: 100%;
 }

@@ -35,7 +35,7 @@
 </header>
 
       <main class="main">
-        <div class="site-wrapper">
+        <div class="site-content">
           <section class="recomended">
             <div class="container">
               <!-- <h2 class="section-title recomended__title">
@@ -51,7 +51,9 @@
               <div class="data-section__wrapper">
                 <div class="data-section__heading">
                   <h2 class="section-title films__title">Popular Movies</h2>
-                  <a href="featured.html" class="data-section__link"
+                  <a
+                    href="featured.html?featured=popular&media=movie"
+                    class="data-section__link"
                     >Show All</a
                   >
                 </div>
@@ -71,16 +73,69 @@
               <div class="data-section__wrapper">
                 <div class="data-section__heading">
                   <h2 class="section-title tv__title">Popular TV Shows</h2>
-                  <a href="featured.html" class="data-section__link"
+                  <a
+                    href="featured.html?featured=popular&media=tv"
+                    class="data-section__link"
                     >Show All</a
                   >
                 </div>
+
                 <div
                   class="data-section__scroll"
                   data-simplebar
                   data-simplebar-auto-hide="false"
                 >
                   <div class="tv__inner data-section__inner"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="top-shows data-section">
+            <div class="container">
+              <div class="data-section__wrapper">
+                <div class="data-section__heading">
+                  <h2 class="section-title top-shows__title">
+                    Best Rated Shows
+                  </h2>
+                  <a
+                    href="featured.html?featured=top_rated&media=tv"
+                    class="data-section__link"
+                    >Show All</a
+                  >
+                </div>
+
+                <div
+                  class="data-section__scroll"
+                  data-simplebar
+                  data-simplebar-auto-hide="false"
+                >
+                  <div class="top-shows__inner data-section__inner"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="top-movies data-section">
+            <div class="container">
+              <div class="data-section__wrapper">
+                <div class="data-section__heading">
+                  <h2 class="section-title top-movies__title">
+                    Best Rated Movies
+                  </h2>
+                  <a
+                    href="featured.html?featured=top_rated&media=movie"
+                    class="data-section__link"
+                    >Show All</a
+                  >
+                </div>
+
+                <div
+                  class="data-section__scroll"
+                  data-simplebar
+                  data-simplebar-auto-hide="false"
+                >
+                  <div class="top-movies__inner data-section__inner"></div>
                 </div>
               </div>
             </div>

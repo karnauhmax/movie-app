@@ -1,7 +1,8 @@
-import renderGenres from './renderGenres';
 import genres from './genres';
 
+const loader = document.querySelector('.loader');
 const renderDataList = (dataObj, filmsInner) => {
+  loader.classList.remove('active');
   const genresList = document.querySelectorAll('.item__genres');
   const filmsList = dataObj.results;
   filmsInner.innerHTML = '';
@@ -44,7 +45,7 @@ const renderDataList = (dataObj, filmsInner) => {
             <div class="item__img ibg">
                 ${
                   poster_path || profile_path
-                    ? `<img loading="lazy" src="https://image.tmdb.org/t/p/original/${
+                    ? `<img " src="https://image.tmdb.org/t/p/w200/${
                         poster_path || profile_path
                       }" class="skeleton-image" width="250" height="250"alt="">`
                     : '<p>Oops :( Looks like image not found</p>'

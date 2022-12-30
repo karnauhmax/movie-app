@@ -8,9 +8,19 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
 
 let queryParam = params.page;
 
-if (!queryParam) {
-  queryParam = 1;
-  history.pushState(null, null, '?page=1');
+const total = 100;
+const pages = Math.ceil(total / 10);
+for (let i = pages; i >= 1; i--) {
+  paginationList.forEach(el => {
+    el.insertAdjacentHTML(
+      'afterbegin',
+      `
+    <li class="pagination__item ${i == queryParam ? 'active' : ''}">
+        <a href="featured.html?featured=popular&page=1" class="pagination__btn">${i}</a>
+      </li>
+    `
+    );
+  });
 }
 
 export { params, queryParam, paginationList };
