@@ -954,7 +954,6 @@ var updateCount = function (n) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_preloader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/preloader */ "./src/js/components/preloader.js");
-/* harmony import */ var _components_preloader__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_preloader__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pagination */ "./src/js/components/pagination.js");
 /* harmony import */ var _components_kinoapi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/kinoapi */ "./src/js/components/kinoapi.js");
 /* harmony import */ var _components_sliders__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/sliders */ "./src/js/components/sliders.js");
@@ -1175,7 +1174,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _renderDataList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./renderDataList */ "./src/js/components/renderDataList.js");
 /* harmony import */ var _pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pagination */ "./src/js/components/pagination.js");
 /* harmony import */ var _apikeys__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apikeys */ "./src/js/components/apikeys.js");
+/* harmony import */ var _preloader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./preloader */ "./src/js/components/preloader.js");
 //imports
+
 
 
 
@@ -1197,6 +1198,7 @@ async function fetchData(url) {
 //fetching movies
 
 if (body.dataset.page == 'home') {
+  (0,_preloader__WEBPACK_IMPORTED_MODULE_3__["default"])();
   fetchData(_apikeys__WEBPACK_IMPORTED_MODULE_2__.API.movies_popular).then(data => {
     (0,_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, filmsInner);
   });
@@ -1234,6 +1236,7 @@ form.addEventListener('submit', e => {
       results
     } = data;
     siteWrapper.innerHTML = '';
+    siteWrapper.classList.remove('extended');
     searchInner.innerHTML = '';
     console.log(data);
     if (results.length >= 1) {
@@ -1248,8 +1251,8 @@ form.addEventListener('submit', e => {
 
 let currentUrl = new URLSearchParams(window.location.search);
 let mediaType = currentUrl.get('media');
-let featured = currentUrl.get('featured');
-const featuredUrl = `https://api.themoviedb.org/3/${mediaType}/${featured}?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_2__.API_KEY}&language=en-US&page=1`;
+let featuredType = currentUrl.get('featured');
+const featuredUrl = `https://api.themoviedb.org/3/${mediaType}/${featuredType}?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_2__.API_KEY}&language=en-US&page=1`;
 if (body.dataset.page == 'featured') {
   // if (!queryParam) {
   //   queryParam = 1;
@@ -1260,13 +1263,16 @@ if (body.dataset.page == 'featured') {
     (0,_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, featuredInner);
     const featured = document.querySelector('.featured');
     const title = featured.querySelector('.section-title');
-    switch (mediaType) {
-      case 'tv':
-        title.innerText = 'Popular TV Shows';
-        break;
-      case 'movie':
-        title.innerText = 'Popular Movies';
-        break;
+
+    //  REFACTOR THIS
+    if (mediaType == 'tv' && featuredType == 'popular') {
+      title.innerText = 'Popular TV  Shows';
+    } else if (mediaType == 'tv' && featuredType == 'top_rated') {
+      title.innerText = 'Best Rated TV Shows';
+    } else if (mediaType == 'movie' && featuredType == 'popular') {
+      title.innerText = 'Popular Movies';
+    } else if (mediaType == 'movie' && featuredType == 'top_rated') {
+      title.innerText = 'Best Rated Movies';
     }
   });
 }
@@ -1312,24 +1318,31 @@ for (let i = pages; i >= 1; i--) {
 /*!****************************************!*\
   !*** ./src/js/components/preloader.js ***!
   \****************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-if (document.querySelector(".preloader")) {
-  const preloader = document.querySelector(".preloader");
-  const logo = preloader.querySelector(".logo");
-  window.addEventListener("load", e => {
-    setTimeout(() => {
-      logo.classList.add("active");
-    }, 300);
-    setTimeout(() => {
-      preloader.classList.remove("active");
-    }, 1400);
-  });
-}
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const initPreloader = () => {
+  if (document.querySelector('.preloader')) {
+    const preloader = document.querySelector('.preloader');
+    const logo = preloader.querySelector('.logo');
+    window.addEventListener('load', e => {
+      setTimeout(() => {
+        logo.classList.add('active');
+      }, 300);
+      setTimeout(() => {
+        preloader.classList.remove('active');
+      }, 1400);
+    });
 
-// if (preloader) {
+    // preloader.style.display = 'none';
+  }
+};
 
-// }
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initPreloader);
 
 /***/ }),
 
