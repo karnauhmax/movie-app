@@ -11,9 +11,7 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_preloader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/preloader */ "./src/js/components/preloader.js");
 /* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pagination */ "./src/js/components/pagination.js");
-/* harmony import */ var _components_kinoapi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/kinoapi */ "./src/js/components/kinoapi.js");
-/* harmony import */ var _components_sliders__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/sliders */ "./src/js/components/sliders.js");
-
+/* harmony import */ var _components_sliders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/sliders */ "./src/js/components/sliders.js");
 
 
 
@@ -290,106 +288,23 @@ const genres = [{
 
 /***/ }),
 
-/***/ "./src/js/components/kinoapi.js":
-/*!**************************************!*\
-  !*** ./src/js/components/kinoapi.js ***!
-  \**************************************/
+/***/ "./src/js/components/loader/removeLoader.js":
+/*!**************************************************!*\
+  !*** ./src/js/components/loader/removeLoader.js ***!
+  \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _renderDataList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./renderDataList */ "./src/js/components/renderDataList.js");
-/* harmony import */ var _pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pagination */ "./src/js/components/pagination.js");
-/* harmony import */ var _apikeys__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apikeys */ "./src/js/components/apikeys.js");
-/* harmony import */ var _preloader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./preloader */ "./src/js/components/preloader.js");
-/* harmony import */ var _form_renderFormDataList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form/renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
-//imports
-
-
-
-
-
-
-//films markdown vars
-const body = document.body;
-const tvsInner = document.querySelector('.tv__inner');
-const filmsInner = document.querySelector('.films__inner');
-const loader = document.querySelector('.loader');
-const featuredInner = document.querySelector('.featured__inner');
-const movieTopRated = document.querySelector('.top-movies__inner');
-const tvTopRated = document.querySelector('.top-shows__inner');
-const searchResults = document.querySelector('.form__results');
-async function fetchData(url) {
-  const res = await fetch(url);
-  const data = await res.json();
-  return data;
-}
-
-//fetching movies
-
-if (body.dataset.page == 'home') {
-  (0,_preloader__WEBPACK_IMPORTED_MODULE_3__["default"])();
-  fetchData(_apikeys__WEBPACK_IMPORTED_MODULE_2__.API.movies_popular).then(data => {
-    (0,_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, filmsInner);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const removeLoader = pageLoader => {
+  pageLoader.forEach(loader => {
+    loader.classList.remove('active');
   });
-
-  //fetching tv shows list
-
-  fetchData(_apikeys__WEBPACK_IMPORTED_MODULE_2__.API.tv_popular).then(data => {
-    (0,_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, tvsInner);
-  });
-  fetchData(_apikeys__WEBPACK_IMPORTED_MODULE_2__.API.tv_topRated).then(data => {
-    (0,_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, tvTopRated);
-  });
-  fetchData(_apikeys__WEBPACK_IMPORTED_MODULE_2__.API.movies_topRated).then(data => {
-    (0,_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, movieTopRated);
-  });
-}
-
-//search logic
-
-const form = document.querySelector('.form');
-const search = form.querySelector('.form__search');
-console.log(search);
-form.addEventListener('keyup', async e => {
-  const target = e.target;
-  if (target.value.length >= 3) {
-    const data = await fetchData(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_2__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
-    console.log(data.results);
-    searchResults.innerHTML = '';
-    (0,_form_renderFormDataList__WEBPACK_IMPORTED_MODULE_4__["default"])(data.results, searchResults);
-  }
-});
-
-//url and query params
-
-let currentUrl = new URLSearchParams(window.location.search);
-let mediaType = currentUrl.get('media');
-let featuredType = currentUrl.get('featured');
-const featuredUrl = `https://api.themoviedb.org/3/${mediaType}/${featuredType}?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_2__.API_KEY}&language=en-US&page=1`;
-if (body.dataset.page == 'featured') {
-  // if (!queryParam) {
-  //   queryParam = 1;
-  //   history.pushState(null, null, '?page=1');
-  // }
-
-  fetchData(featuredUrl).then(data => {
-    (0,_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, featuredInner);
-    const featured = document.querySelector('.featured');
-    const title = featured.querySelector('.section-title');
-
-    //  REFACTOR THIS
-    if (mediaType == 'tv' && featuredType == 'popular') {
-      title.innerText = 'Popular TV  Shows';
-    } else if (mediaType == 'tv' && featuredType == 'top_rated') {
-      title.innerText = 'Best Rated TV Shows';
-    } else if (mediaType == 'movie' && featuredType == 'popular') {
-      title.innerText = 'Popular Movies';
-    } else if (mediaType == 'movie' && featuredType == 'top_rated') {
-      title.innerText = 'Best Rated Movies';
-    }
-  });
-}
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (removeLoader);
 
 /***/ }),
 
@@ -480,10 +395,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _genres__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./genres */ "./src/js/components/genres.js");
 
-const loader = document.querySelector('.loader');
+const loader = document.querySelectorAll('.loader');
 const renderDataList = (dataObj, filmsInner) => {
   console.log(dataObj);
-  loader.classList.remove('active');
+  loader.forEach(loader => {
+    loader.classList.remove("active");
+  });
   const genresList = document.querySelectorAll('.item__genres');
   const filmsList = dataObj.results;
   filmsInner.innerHTML = '';
@@ -556,6 +473,125 @@ const renderDataList = (dataObj, filmsInner) => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ "./node_modules/swiper/swiper.esm.js");
 
+
+/***/ }),
+
+/***/ "./src/js/kinoapi.js":
+/*!***************************!*\
+  !*** ./src/js/kinoapi.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_renderDataList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/renderDataList */ "./src/js/components/renderDataList.js");
+/* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pagination */ "./src/js/components/pagination.js");
+/* harmony import */ var _components_apikeys__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/apikeys */ "./src/js/components/apikeys.js");
+/* harmony import */ var _components_preloader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/preloader */ "./src/js/components/preloader.js");
+/* harmony import */ var _components_form_renderFormDataList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/form/renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
+/* harmony import */ var _components_loader_removeLoader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/loader/removeLoader */ "./src/js/components/loader/removeLoader.js");
+//imports
+
+
+
+
+
+
+
+//films markdown vars
+const body = document.body;
+const tvsInner = document.querySelector('.tv__inner');
+const filmsInner = document.querySelector('.films__inner');
+const loaders = document.querySelectorAll('.loader');
+const featuredInner = document.querySelector('.featured__inner');
+const movieTopRated = document.querySelector('.top-movies__inner');
+const tvTopRated = document.querySelector('.top-shows__inner');
+const searchResults = document.querySelector('.form__results');
+async function fetchData(url) {
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
+}
+
+//fetching movies
+
+if (body.dataset.page == 'home') {
+  (0,_components_preloader__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  const {
+    movies_popular,
+    tv_popular,
+    tv_topRated,
+    movies_topRated
+  } = _components_apikeys__WEBPACK_IMPORTED_MODULE_2__.API;
+  const renderArr = [{
+    url: movies_popular,
+    location: filmsInner
+  }, {
+    url: tv_popular,
+    location: tvsInner
+  }, {
+    url: tv_topRated,
+    location: tvTopRated
+  }, {
+    url: movies_topRated,
+    location: movieTopRated
+  }];
+  renderArr.forEach(dataObject => {
+    const {
+      url,
+      location
+    } = dataObject;
+    fetchData(url).then(data => {
+      (0,_components_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, location);
+      (0,_components_loader_removeLoader__WEBPACK_IMPORTED_MODULE_5__["default"])(loaders);
+    });
+  });
+}
+
+//search logic
+
+const form = document.querySelector('.form');
+const search = form.querySelector('.form__search');
+console.log(search);
+form.addEventListener('keyup', async e => {
+  const target = e.target;
+  if (target.value.length >= 3) {
+    const data = await fetchData(`https://api.themoviedb.org/3/search/multi?api_key=${_components_apikeys__WEBPACK_IMPORTED_MODULE_2__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
+    console.log(data.results);
+    searchResults.innerHTML = '';
+    (0,_components_form_renderFormDataList__WEBPACK_IMPORTED_MODULE_4__["default"])(data.results, searchResults);
+  }
+});
+
+//url and query params
+
+let currentUrl = new URLSearchParams(window.location.search);
+let mediaType = currentUrl.get('media');
+let featuredType = currentUrl.get('featured');
+const featuredUrl = `https://api.themoviedb.org/3/${mediaType}/${featuredType}?api_key=${_components_apikeys__WEBPACK_IMPORTED_MODULE_2__.API_KEY}&language=en-US&page=1`;
+if (body.dataset.page == 'featured') {
+  // if (!queryParam) {
+  //   queryParam = 1;
+  //   history.pushState(null, null, '?page=1');
+  // }
+
+  fetchData(featuredUrl).then(data => {
+    (0,_components_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, featuredInner);
+    const featured = document.querySelector('.featured');
+    const title = featured.querySelector('.section-title');
+
+    //  REFACTOR THIS
+    if (mediaType == 'tv' && featuredType == 'popular') {
+      title.innerText = 'Popular TV  Shows';
+    } else if (mediaType == 'tv' && featuredType == 'top_rated') {
+      title.innerText = 'Best Rated TV Shows';
+    } else if (mediaType == 'movie' && featuredType == 'popular') {
+      title.innerText = 'Popular Movies';
+    } else if (mediaType == 'movie' && featuredType == 'top_rated') {
+      title.innerText = 'Best Rated Movies';
+    }
+  });
+}
 
 /***/ }),
 
@@ -13213,6 +13249,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_functions */ "./src/js/_functions.js");
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_functions__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_components */ "./src/js/_components.js");
+/* harmony import */ var _kinoapi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./kinoapi */ "./src/js/kinoapi.js");
+
 
 
 })();

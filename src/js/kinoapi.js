@@ -1,15 +1,16 @@
 //imports
-import renderDataList from './renderDataList';
-import { queryParam } from './pagination';
-import { API, API_KEY } from './apikeys';
-import initPreloader from './preloader';
-import renderFormDataList from './form/renderFormDataList';
+import renderDataList from './components/renderDataList';
+import { queryParam } from './components/pagination';
+import { API, API_KEY } from './components/apikeys';
+import initPreloader from './components/preloader';
+import renderFormDataList from './components/form/renderFormDataList';
+import removeLoader from './components/loader/removeLoader';
 
 //films markdown vars
 const body = document.body;
 const tvsInner = document.querySelector('.tv__inner');
 const filmsInner = document.querySelector('.films__inner');
-const loader = document.querySelector('.loader');
+const loaders = document.querySelectorAll('.loader');
 const featuredInner = document.querySelector('.featured__inner');
 const movieTopRated = document.querySelector('.top-movies__inner');
 const tvTopRated = document.querySelector('.top-shows__inner');
@@ -26,22 +27,23 @@ async function fetchData(url) {
 if (body.dataset.page == 'home') {
   initPreloader();
 
-  fetchData(API.movies_popular).then(data => {
-    renderDataList(data, filmsInner);
-  });
+  const { movies_popular, tv_popular, tv_topRated, movies_topRated } = API;
 
-  //fetching tv shows list
+  const renderArr = [
+    { url: movies_popular, location: filmsInner },
+    { url: tv_popular, location: tvsInner },
+    { url: tv_topRated, location: tvTopRated },
+    { url: movies_topRated, location: movieTopRated }
+  ];
 
-  fetchData(API.tv_popular).then(data => {
-    renderDataList(data, tvsInner);
-  });
+  renderArr.forEach(dataObject => {
+    const { url, location } = dataObject;
 
-  fetchData(API.tv_topRated).then(data => {
-    renderDataList(data, tvTopRated);
-  });
+    fetchData(url).then(data => {
+      renderDataList(data, location);
+      removeLoader(loaders);
+    });
 
-  fetchData(API.movies_topRated).then(data => {
-    renderDataList(data, movieTopRated);
   });
 }
 
