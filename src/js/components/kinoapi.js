@@ -3,6 +3,7 @@ import renderDataList from './renderDataList';
 import { queryParam } from './pagination';
 import { API, API_KEY } from './apikeys';
 import initPreloader from './preloader';
+import renderFormDataList from './form/renderFormDataList';
 
 //films markdown vars
 const body = document.body;
@@ -12,6 +13,7 @@ const loader = document.querySelector('.loader');
 const featuredInner = document.querySelector('.featured__inner');
 const movieTopRated = document.querySelector('.top-movies__inner');
 const tvTopRated = document.querySelector('.top-shows__inner');
+const searchResults = document.querySelector('.form__results');
 
 async function fetchData(url) {
   const res = await fetch(url);
@@ -50,33 +52,16 @@ const search = form.querySelector('.form__search');
 
 console.log(search);
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  document.querySelector('.search').classList.add('active');
-  const API_SEARCH_URL = `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${search.value}&language=en-US&page=1&include_adult=false`;
-  fetch(API_SEARCH_URL, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then(res => res.json())
-    .then(data => {
-      const siteWrapper = document.querySelector('.site-content');
-      const searchInner = document.querySelector('.search__inner');
-      const { results } = data;
-
-      siteWrapper.innerHTML = '';
-      siteWrapper.classList.remove('extended');
-      searchInner.innerHTML = '';
-
-      console.log(data);
-      if (results.length >= 1) {
-        renderDataList(data, searchInner);
-      } else {
-        searchInner.innerHTML =
-          "<p class='form__error'>There is no results </p>";
-      }
-    });
+form.addEventListener('keyup', async e => {
+  const target = e.target;
+  if (target.value.length >= 3) {
+    const data = await fetchData(
+      `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`
+    );
+    console.log(data.results);
+    searchResults.innerHTML = '';
+    renderFormDataList(data.results, searchResults);
+  }
 });
 
 //url and query params

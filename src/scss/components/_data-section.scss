@@ -2,11 +2,21 @@
   padding-top: rem(50);
   & .item {
     flex: 1 0 200px;
+    .item__img {
+      padding-bottom: 134%;
+    }
   }
 
   &__scroll {
     overflow-y: hidden;
-    // padding-bottom: 50px;
+    @include scrollbar(
+      #2c2a2a,
+      var(--white),
+      10px,
+      horizontal,
+      var(--radius-primary),
+      rgb(181, 178, 178)
+    );
   }
 
   &__wrapper {

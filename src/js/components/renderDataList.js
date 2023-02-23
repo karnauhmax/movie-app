@@ -2,6 +2,7 @@ import genres from './genres';
 
 const loader = document.querySelector('.loader');
 const renderDataList = (dataObj, filmsInner) => {
+  console.log(dataObj);
   loader.classList.remove('active');
   const genresList = document.querySelectorAll('.item__genres');
   const filmsList = dataObj.results;
