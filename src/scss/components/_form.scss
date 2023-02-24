@@ -1,21 +1,17 @@
 .form {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr min-content;
   align-items: center;
-  border: 1px solid white;
-  border-radius: 5px;
-  padding-right: rem(10);
-  background-color: rgba(190, 183, 183, 0.247);
-  column-gap: rem(10);
+  gap: rem(10);
 
   &__search {
+    border-radius: var(--radius-primary);
     padding: rem(10) rem(10) rem(10) rem(10);
-    color: var(--white);
-    font-size: rem(14);
     min-width: rem(220);
+    font-size: rem(14);
+    color: var(--white);
     background-color: transparent;
-    transition: box-shadow .5s ease;
-    border-radius: 5px;
+    transition: box-shadow 0.5s ease;
 
     &:focus-visible {
       outline: none;
@@ -26,21 +22,81 @@
   &__btn {
     width: 20px;
     height: 20px;
-    background: url("../img/icons/search.svg") no-repeat center center / contain;
+    background: url('../img/icons/search.svg') no-repeat center center / contain;
     background-color: transparent;
-    height: 100%;
+  }
+
+  &__results {
+    display: none;
+    position: absolute;
+    top: rem(50);
+    overflow: auto;
+    border-radius: var(--radius-primary);
+    width: 100%;
+    max-height: rem(573);
+    background-color: #2c2a2a;
+    padding-top: rem(10);
+    gap: rem(20);
+    padding: 0 rem(10);
+    @include scrollbar(
+      #2c2a2a,
+      var(--white),
+      10px,
+      vertical,
+      var(--radius-primary),
+      rgb(181, 178, 178)
+    );
+
+    &.active {
+      display: grid;
+    }
+  }
+
+  &__result {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: rem(10);
+    padding-bottom: rem(20);
+    &-img {
+      border-radius: var(--radius-primary);
+      padding-bottom: 100%;
+
+      img {
+        background-color: unset;
+        object-fit: contain;
+        animation: none;
+      }
+    }
+
+    &-rating {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid white;
+    }
+  }
+
+  &__inputs {
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: var(--radius-primary);
+    padding-right: rem(10);
+    background-color: rgba(190, 183, 183, 0.247);
   }
 
   &__error {
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: rem(30);
-    font-weight: 900;
-    text-transform: uppercase;
+    top: 50%;
     display: inline-block;
     width: 100%;
+    font-weight: 900;
+    font-size: rem(30);
+    text-transform: uppercase;
+    transform: translate(-50%, -50%);
     text-align: center;
   }
 }

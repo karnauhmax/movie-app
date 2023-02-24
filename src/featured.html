@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" class="page">
+  @include('partials/head.html')
+
+  <body class="page__body" data-page="featured">
+    <div class="site-container">
+      @include('partials/header.html')
+      <main class="main">
+        <div class="site-content extended">
+          <!-- films -->
+
+          <section class="featured data-section">
+            <div class="container">
+              <div class="data-section__wrapper">
+                <div class="data-section__heading">
+                  <h2 class="section-title featured__title">Popular Movies</h2>
+                  <a href="index.html" class="data-section__link">Go Back</a>
+                </div>
+                <ul class="pagination"></ul>
+                <div
+                  class="data-section__scroll"
+                  data-simplebar
+                  data-simplebar-auto-hide="false"
+                >
+                  <div class="featured__inner data-section__inner"></div>
+                </div>
+                <ul class="pagination"></ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- films -->
+
+          <!-- preloader -->
+
+          <!-- <div class="preloader active">
+          <p class="logo">Movie App</p>
+          <div class="preloader__footer">
+            <p class="preloader__text">Made by <span>Max Karnauh</span></p>
+          </div>
+        </div> -->
+
+          <!-- preloader -->
+        </div>
+
+        <!-- loader placehodler -->
+
+        <div class="loader fixed active"></div>
+
+        <!-- loader placehodler -->
+
+        <!-- search placeholder -->
+
+        <div class="search">
+          <div class="container">
+            <div class="search__inner"></div>
+          </div>
+        </div>
+
+        <!-- search placeholder -->
+      </main>
+
+      @include('partials/footer.html')
+    </div>
+  </body>
+</html>

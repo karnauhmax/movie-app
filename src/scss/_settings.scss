@@ -2,7 +2,6 @@ html {
   box-sizing: border-box;
 }
 
-
 *,
 *::before,
 *::after {
@@ -38,6 +37,14 @@ li {
   height: 100%;
   font-family: var(--font-family, sans-serif);
   -webkit-text-size-adjust: 100%;
+  @include scrollbar(
+    #2c2a2a,
+    var(--white),
+    10px,
+    vertical,
+    var(--radius-primary),
+    rgb(181, 178, 178)
+  );
 }
 
 .page__body {
@@ -145,11 +152,9 @@ main {
   object-fit: cover;
 }
 
-
 .global-wrapper {
   position: relative;
 }
-
 
 .locked {
   overflow: hidden;
@@ -162,4 +167,12 @@ main {
 .section-title {
   @include adaptiveValue(font-size, 40, 20, 1920, 360, 1);
   font-weight: 900;
+}
+
+.extended {
+  height: 100%;
+}
+
+.hide {
+  display: none !important;
 }

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" class="page">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#111111">
+  <title>Movie App</title>
+
+  <!-- fonts -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+  <!-- fonts -->
+
+  <link rel="stylesheet" href="css/main.css">
+  <script defer src="js/main.js"></script>
+</head>
+
+  <body class="page__body" data-page="featured">
+    <div class="site-container">
+      <header class="header">
+  <div class="container">
+    <div class="header__inner">
+      <a href="index.html" class="logo">Movie App</a>
+      <form class="form header__form">
+        <div class="form__inputs">
+          <input
+            type="search"
+            class="form__search input-reset"
+            placeholder="Search..."
+          />
+          <button type="submit" class="form__btn"></button>
+        </div>
+        <div class="form__results"></div>
+      </form>
+    </div>
+  </div>
+</header>
+
+      <main class="main">
+        <div class="site-content extended">
+          <!-- films -->
+
+          <section class="featured data-section">
+            <div class="container">
+              <div class="data-section__wrapper">
+                <div class="data-section__heading">
+                  <h2 class="section-title featured__title">Popular Movies</h2>
+                  <a href="index.html" class="data-section__link">Go Back</a>
+                </div>
+                <ul class="pagination"></ul>
+                <div
+                  class="data-section__scroll"
+                  data-simplebar
+                  data-simplebar-auto-hide="false"
+                >
+                  <div class="featured__inner data-section__inner"></div>
+                </div>
+                <ul class="pagination"></ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- films -->
+
+          <!-- preloader -->
+
+          <!-- <div class="preloader active">
+          <p class="logo">Movie App</p>
+          <div class="preloader__footer">
+            <p class="preloader__text">Made by <span>Max Karnauh</span></p>
+          </div>
+        </div> -->
+
+          <!-- preloader -->
+        </div>
+
+        <!-- loader placehodler -->
+
+        <div class="loader fixed active"></div>
+
+        <!-- loader placehodler -->
+
+        <!-- search placeholder -->
+
+        <div class="search">
+          <div class="container">
+            <div class="search__inner"></div>
+          </div>
+        </div>
+
+        <!-- search placeholder -->
+      </main>
+
+      <footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <span class="footer__date">24.12.2022</span>
+      <div class="footer__info">
+        <p class="footer__text">Made by
+          <a href="https://github.com/karnauhmax" class="footer__link" target="_blank">Max
+            Karnauh
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+  </body>
+</html>
