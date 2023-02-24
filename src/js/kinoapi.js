@@ -5,6 +5,10 @@ import { API, API_KEY } from './components/apikeys';
 import initPreloader from './components/preloader';
 import renderFormDataList from './components/form/renderFormDataList';
 import removeLoader from './components/loader/removeLoader';
+import createDynamicLinks from './components/links/createDynamicLinks';
+import renderParamsLinks from './components/links/renderParamsLinks';
+
+renderParamsLinks();
 
 //films markdown vars
 const body = document.body;
@@ -43,7 +47,6 @@ if (body.dataset.page == 'home') {
       renderDataList(data, location);
       removeLoader(loaders);
     });
-
   });
 }
 
