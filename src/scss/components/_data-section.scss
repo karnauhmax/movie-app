@@ -1,4 +1,5 @@
 .data-section {
+  position: relative;
   padding-top: rem(50);
   & .item {
     flex: 1 0 200px;

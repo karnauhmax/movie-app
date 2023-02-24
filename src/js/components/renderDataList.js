@@ -1,9 +1,15 @@
-import genres from './genres';
+import genres from './genres/genresList';
+import renderGenres from './genres/renderGenres';
+import createDynamicLinks from './links/createDynamicLinks';
+import linksList from './links/linksList';
+import renderParamsLinks from './links/renderParamsLinks';
 
-const loader = document.querySelector('.loader');
+const loader = document.querySelectorAll('.loader');
 const renderDataList = (dataObj, filmsInner) => {
   console.log(dataObj);
-  loader.classList.remove('active');
+  loader.forEach(loader => {
+    loader.classList.remove('active');
+  });
   const genresList = document.querySelectorAll('.item__genres');
   const filmsList = dataObj.results;
   filmsInner.innerHTML = '';
@@ -17,31 +23,34 @@ const renderDataList = (dataObj, filmsInner) => {
       popularity,
       profile_path,
       genre_ids,
-      known_for
+      known_for,
+      id
     } = film;
 
     //genres detecting
-    const genresResult = [];
-    if (genre_ids && genre_ids.length >= 1) {
-      genres.forEach(genreObj => {
-        genre_ids.forEach(item => {
-          if (item == genreObj.id) {
-            genresResult.push(genreObj.name);
-          }
-        });
-      });
-    } else if (known_for && known_for.length >= 1) {
-      known_for.forEach(film => {
-        genresResult.push(film.title || film.name);
-      });
-    }
+    // const genresResult = [];
+    // if (genre_ids && genre_ids.length >= 1) {
+    //   genres.forEach(genreObj => {
+    //     genre_ids.forEach(item => {
+    //       if (item == genreObj.id) {
+    //         genresResult.push(genreObj.name);
+    //       }
+    //     });
+    //   });
+    // } else if (known_for && known_for.length >= 1) {
+    //   known_for.forEach(film => {
+    //     genresResult.push(film.title || film.name);
+    //   });
+    // }
+
+    const genresResult = renderGenres(genre_ids, known_for);
 
     //rendering films/actors/movies by data
     filmsInner.insertAdjacentHTML(
       'beforeend',
       `
     <article class="item">
-      <a href="#" class="item__link">
+      <a href="single.html?id=${id}" class="item__link">
         <div href="#" class="item__img-wrapper">
             <div class="item__img ibg">
                 ${

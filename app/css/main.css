@@ -847,13 +847,12 @@ main {
   border: 6px solid rgb(104, 103, 103);
   /* Light grey */
   border-top: 6px solid var(--white);
-  /* Blue */
   border-radius: 50%;
   width: 40px;
   height: 40px;
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
@@ -863,6 +862,9 @@ main {
 }
 .loader.active {
   display: block;
+}
+.loader.fixed {
+  position: fixed;
 }
 
 @-webkit-keyframes spin {
@@ -903,6 +905,7 @@ main {
 }
 
 .data-section {
+  position: relative;
   padding-top: 3.125rem;
 }
 .data-section .item {
