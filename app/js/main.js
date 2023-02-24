@@ -357,6 +357,24 @@ const createDynamicLinks = (pageUrl, className, params, parentSelector, text) =>
 
 /***/ }),
 
+/***/ "./src/js/components/links/determineType.js":
+/*!**************************************************!*\
+  !*** ./src/js/components/links/determineType.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const determineType = entry => {
+  return entry.name ? 'tv' : 'movie';
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (determineType);
+
+/***/ }),
+
 /***/ "./src/js/components/links/linksList.js":
 /*!**********************************************!*\
   !*** ./src/js/components/links/linksList.js ***!
@@ -548,8 +566,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _genres_genresList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./genres/genresList */ "./src/js/components/genres/genresList.js");
 /* harmony import */ var _genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./genres/renderGenres */ "./src/js/components/genres/renderGenres.js");
 /* harmony import */ var _links_createDynamicLinks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./links/createDynamicLinks */ "./src/js/components/links/createDynamicLinks.js");
-/* harmony import */ var _links_linksList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./links/linksList */ "./src/js/components/links/linksList.js");
-/* harmony import */ var _links_renderParamsLinks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./links/renderParamsLinks */ "./src/js/components/links/renderParamsLinks.js");
+/* harmony import */ var _links_determineType__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./links/determineType */ "./src/js/components/links/determineType.js");
+/* harmony import */ var _links_linksList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./links/linksList */ "./src/js/components/links/linksList.js");
+/* harmony import */ var _links_renderParamsLinks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./links/renderParamsLinks */ "./src/js/components/links/renderParamsLinks.js");
+
 
 
 
@@ -577,29 +597,12 @@ const renderDataList = (dataObj, filmsInner) => {
       known_for,
       id
     } = film;
-
-    //genres detecting
-    // const genresResult = [];
-    // if (genre_ids && genre_ids.length >= 1) {
-    //   genres.forEach(genreObj => {
-    //     genre_ids.forEach(item => {
-    //       if (item == genreObj.id) {
-    //         genresResult.push(genreObj.name);
-    //       }
-    //     });
-    //   });
-    // } else if (known_for && known_for.length >= 1) {
-    //   known_for.forEach(film => {
-    //     genresResult.push(film.title || film.name);
-    //   });
-    // }
-
     const genresResult = (0,_genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__["default"])(genre_ids, known_for);
 
     //rendering films/actors/movies by data
     filmsInner.insertAdjacentHTML('beforeend', `
     <article class="item">
-      <a href="single.html?id=${id}" class="item__link">
+      <a href="single.html?media=${(0,_links_determineType__WEBPACK_IMPORTED_MODULE_3__["default"])(film)}&id=${id}" class="item__link">
         <div href="#" class="item__img-wrapper">
             <div class="item__img ibg">
                 ${poster_path || profile_path ? `<img " src="https://image.tmdb.org/t/p/w200/${poster_path || profile_path}" class="skeleton-image" width="250" height="250"alt="">` : '<p>Oops :( Looks like image not found</p>'}

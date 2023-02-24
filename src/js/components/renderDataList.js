@@ -1,6 +1,7 @@
 import genres from './genres/genresList';
 import renderGenres from './genres/renderGenres';
 import createDynamicLinks from './links/createDynamicLinks';
+import determineType from './links/determineType';
 import linksList from './links/linksList';
 import renderParamsLinks from './links/renderParamsLinks';
 
@@ -27,22 +28,6 @@ const renderDataList = (dataObj, filmsInner) => {
       id
     } = film;
 
-    //genres detecting
-    // const genresResult = [];
-    // if (genre_ids && genre_ids.length >= 1) {
-    //   genres.forEach(genreObj => {
-    //     genre_ids.forEach(item => {
-    //       if (item == genreObj.id) {
-    //         genresResult.push(genreObj.name);
-    //       }
-    //     });
-    //   });
-    // } else if (known_for && known_for.length >= 1) {
-    //   known_for.forEach(film => {
-    //     genresResult.push(film.title || film.name);
-    //   });
-    // }
-
     const genresResult = renderGenres(genre_ids, known_for);
 
     //rendering films/actors/movies by data
@@ -50,7 +35,9 @@ const renderDataList = (dataObj, filmsInner) => {
       'beforeend',
       `
     <article class="item">
-      <a href="single.html?id=${id}" class="item__link">
+      <a href="single.html?media=${determineType(
+        film
+      )}&id=${id}" class="item__link">
         <div href="#" class="item__img-wrapper">
             <div class="item__img ibg">
                 ${
