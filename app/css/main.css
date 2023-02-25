@@ -1020,6 +1020,12 @@ main {
   grid-template-rows: min-content 1fr;
   height: 100%;
 }
+@media (any-hover: hover) {
+  .item__link:hover .item__img::before {
+    opacity: 1;
+    visibility: visible;
+  }
+}
 .item__info {
   display: -ms-grid;
   display: grid;
@@ -1088,12 +1094,6 @@ main {
   -webkit-transition: 0.3s all ease;
   -o-transition: 0.3s all ease;
   transition: 0.3s all ease;
-}
-@media (any-hover: hover) {
-  .item__img:hover::before {
-    visibility: visible;
-    opacity: 1;
-  }
 }
 .item__item {
   overflow: hidden;

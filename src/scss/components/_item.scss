@@ -5,6 +5,13 @@
     position: relative;
     grid-template-rows: min-content 1fr;
     height: 100%;
+
+    @include hover {
+      .item__img::before {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
   }
 
   &__info {
@@ -64,13 +71,6 @@
       visibility: hidden;
       opacity: 0;
       transition: 0.3s all ease;
-    }
-
-    @include hover {
-      &::before {
-        visibility: visible;
-        opacity: 1;
-      }
     }
   }
 

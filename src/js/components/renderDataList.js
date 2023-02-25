@@ -4,16 +4,16 @@ import createDynamicLinks from './links/createDynamicLinks';
 import determineType from './links/determineType';
 import linksList from './links/linksList';
 import renderParamsLinks from './links/renderParamsLinks';
-
+import clearHTML from './clear/clearHTML';
 const loader = document.querySelectorAll('.loader');
-const renderDataList = (dataObj, filmsInner) => {
+const renderDataList = (dataObj, filmsInner, classList = '') => {
   console.log(dataObj);
   loader.forEach(loader => {
     loader.classList.remove('active');
   });
   const genresList = document.querySelectorAll('.item__genres');
   const filmsList = dataObj.results;
-  filmsInner.innerHTML = '';
+  clearHTML(filmsList);
   filmsList.forEach(film => {
     //destructuring
     const {
@@ -34,7 +34,9 @@ const renderDataList = (dataObj, filmsInner) => {
     filmsInner.insertAdjacentHTML(
       'beforeend',
       `
-    <article class="item">
+    <article class="item ${
+      typeof classList === 'object' ? classList.join(' ') : classList
+    }">
       <a href="single.html?media=${determineType(
         film
       )}&id=${id}" class="item__link">

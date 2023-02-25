@@ -20,7 +20,6 @@ const loaders = document.querySelectorAll('.loader');
 const featuredInner = document.querySelector('.featured__inner');
 const movieTopRated = document.querySelector('.top-movies__inner');
 const tvTopRated = document.querySelector('.top-shows__inner');
-const searchResults = document.querySelector('.form__results');
 
 //fetching movies
 

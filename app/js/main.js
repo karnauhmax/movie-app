@@ -142,6 +142,24 @@ const API = {
 
 /***/ }),
 
+/***/ "./src/js/components/clear/clearHTML.js":
+/*!**********************************************!*\
+  !*** ./src/js/components/clear/clearHTML.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const clearHTML = element => {
+  element.innerHTML = '';
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (clearHTML);
+
+/***/ }),
+
 /***/ "./src/js/components/data/fetchData.js":
 /*!*********************************************!*\
   !*** ./src/js/components/data/fetchData.js ***!
@@ -198,24 +216,42 @@ const closeOutOfForm = () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apikeys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../apikeys */ "./src/js/components/apikeys.js");
-/* harmony import */ var _data_fetchData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data/fetchData */ "./src/js/components/data/fetchData.js");
-/* harmony import */ var _renderFormDataList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
+/* harmony import */ var _clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../clear/clearHTML */ "./src/js/components/clear/clearHTML.js");
+/* harmony import */ var _data_fetchData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data/fetchData */ "./src/js/components/data/fetchData.js");
+/* harmony import */ var _renderDataList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../renderDataList */ "./src/js/components/renderDataList.js");
+/* harmony import */ var _renderFormDataList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
 //search logic
 
 
 
+
+
+const search = document.querySelector('.search');
 const form = document.querySelector('.form');
-const search = form.querySelector('.form__search');
+const searchInner = search.querySelector('.search__inner');
 const searchResults = form.querySelector('.form__results');
-console.log(search);
+const siteContent = document.querySelector('.site-content');
+console.log(searchInner);
+
+//input logic
 form.addEventListener('keyup', async e => {
   const target = e.target;
   if (target.value.length >= 3) {
-    const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_1__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
+    const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_2__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
     console.log(data.results);
-    searchResults.innerHTML = '';
-    (0,_renderFormDataList__WEBPACK_IMPORTED_MODULE_2__["default"])(data.results, searchResults);
+    (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__["default"])(searchResults);
+    (0,_renderFormDataList__WEBPACK_IMPORTED_MODULE_4__["default"])(data.results, searchResults);
   }
+});
+
+//submit logic
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const input = form.querySelector('.form__search');
+  (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__["default"])(siteContent);
+  const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_2__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${input.value}&language=en-US&page=1&include_adult=false`);
+  search.classList.add('active');
+  (0,_renderDataList__WEBPACK_IMPORTED_MODULE_3__["default"])(data, searchInner, ['test', 'test2']);
 });
 
 /***/ }),
@@ -626,6 +662,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _links_determineType__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./links/determineType */ "./src/js/components/links/determineType.js");
 /* harmony import */ var _links_linksList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./links/linksList */ "./src/js/components/links/linksList.js");
 /* harmony import */ var _links_renderParamsLinks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./links/renderParamsLinks */ "./src/js/components/links/renderParamsLinks.js");
+/* harmony import */ var _clear_clearHTML__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./clear/clearHTML */ "./src/js/components/clear/clearHTML.js");
+
 
 
 
@@ -633,14 +671,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const loader = document.querySelectorAll('.loader');
-const renderDataList = (dataObj, filmsInner) => {
+const renderDataList = function (dataObj, filmsInner) {
+  let classList = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
   console.log(dataObj);
   loader.forEach(loader => {
     loader.classList.remove('active');
   });
   const genresList = document.querySelectorAll('.item__genres');
   const filmsList = dataObj.results;
-  filmsInner.innerHTML = '';
+  (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_6__["default"])(filmsList);
   filmsList.forEach(film => {
     //destructuring
     const {
@@ -658,7 +697,7 @@ const renderDataList = (dataObj, filmsInner) => {
 
     //rendering films/actors/movies by data
     filmsInner.insertAdjacentHTML('beforeend', `
-    <article class="item">
+    <article class="item ${typeof classList === 'object' ? classList.join(' ') : classList}">
       <a href="single.html?media=${(0,_links_determineType__WEBPACK_IMPORTED_MODULE_3__["default"])(film)}&id=${id}" class="item__link">
         <div class="item__img-wrapper">
             <div class="item__img ibg">
@@ -738,7 +777,6 @@ const loaders = document.querySelectorAll('.loader');
 const featuredInner = document.querySelector('.featured__inner');
 const movieTopRated = document.querySelector('.top-movies__inner');
 const tvTopRated = document.querySelector('.top-shows__inner');
-const searchResults = document.querySelector('.form__results');
 
 //fetching movies
 
