@@ -38,11 +38,11 @@ const renderDataList = (dataObj, filmsInner) => {
       <a href="single.html?media=${determineType(
         film
       )}&id=${id}" class="item__link">
-        <div href="#" class="item__img-wrapper">
+        <div class="item__img-wrapper">
             <div class="item__img ibg">
                 ${
                   poster_path || profile_path
-                    ? `<img " src="https://image.tmdb.org/t/p/w200/${
+                    ? `<img src="https://image.tmdb.org/t/p/w200/${
                         poster_path || profile_path
                       }" class="skeleton-image" width="250" height="250"alt="">`
                     : '<p>Oops :( Looks like image not found</p>'

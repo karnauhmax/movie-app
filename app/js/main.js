@@ -142,6 +142,30 @@ const API = {
 
 /***/ }),
 
+/***/ "./src/js/components/data/fetchData.js":
+/*!*********************************************!*\
+  !*** ./src/js/components/data/fetchData.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const fetchData = async url => {
+  const response = await fetch(url, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const data = await response.json();
+  return data;
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (fetchData);
+
+/***/ }),
+
 /***/ "./src/js/components/form/closeOutOfForm.js":
 /*!**************************************************!*\
   !*** ./src/js/components/form/closeOutOfForm.js ***!
@@ -162,6 +186,37 @@ const closeOutOfForm = () => {
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (closeOutOfForm);
+
+/***/ }),
+
+/***/ "./src/js/components/form/form.js":
+/*!****************************************!*\
+  !*** ./src/js/components/form/form.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _apikeys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../apikeys */ "./src/js/components/apikeys.js");
+/* harmony import */ var _data_fetchData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../data/fetchData */ "./src/js/components/data/fetchData.js");
+/* harmony import */ var _renderFormDataList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
+//search logic
+
+
+
+const form = document.querySelector('.form');
+const search = form.querySelector('.form__search');
+const searchResults = form.querySelector('.form__results');
+console.log(search);
+form.addEventListener('keyup', async e => {
+  const target = e.target;
+  if (target.value.length >= 3) {
+    const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_1__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
+    console.log(data.results);
+    searchResults.innerHTML = '';
+    (0,_renderFormDataList__WEBPACK_IMPORTED_MODULE_2__["default"])(data.results, searchResults);
+  }
+});
 
 /***/ }),
 
@@ -196,17 +251,19 @@ const renderFormDataList = (arr, list) => {
     list.insertAdjacentHTML(`beforeend`, `
 
 
+    <article class="item">
     <a href="#" class="form__result">
       <div class="form__result-img ibg item__img">
       ${poster_path || profile_path ? `<img src="https://image.tmdb.org/t/p/w200/${poster_path || profile_path}" class="skeleton-image" width="232" height="116"alt="">` : '<p>Oops :( Looks like image not found</p>'}
       </div>
-      <div class="form__result-title">${title || name}</div>
+      <h2 class="form__result-title">${title || name}</h2>
       <div class="form__result-rating">
         <p>${vote_average ? 'Rating' : popularity ? 'Popularity' : ''}</p>
         <p>${vote_average ? vote_average : popularity ? popularity : 'N/A'}</p>
       </div>
-<div class="form__result-genres">Horror Comedy Trash</div>
-</a>
+      <div class="form__result-genres">Horror Comedy Trash</div>
+      </a>
+    </article>
 
     `);
   });
@@ -603,9 +660,9 @@ const renderDataList = (dataObj, filmsInner) => {
     filmsInner.insertAdjacentHTML('beforeend', `
     <article class="item">
       <a href="single.html?media=${(0,_links_determineType__WEBPACK_IMPORTED_MODULE_3__["default"])(film)}&id=${id}" class="item__link">
-        <div href="#" class="item__img-wrapper">
+        <div class="item__img-wrapper">
             <div class="item__img ibg">
-                ${poster_path || profile_path ? `<img " src="https://image.tmdb.org/t/p/w200/${poster_path || profile_path}" class="skeleton-image" width="250" height="250"alt="">` : '<p>Oops :( Looks like image not found</p>'}
+                ${poster_path || profile_path ? `<img src="https://image.tmdb.org/t/p/w200/${poster_path || profile_path}" class="skeleton-image" width="250" height="250"alt="">` : '<p>Oops :( Looks like image not found</p>'}
                 </div>
               </div>
               <div class="item__info">
@@ -658,7 +715,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_loader_removeLoader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/loader/removeLoader */ "./src/js/components/loader/removeLoader.js");
 /* harmony import */ var _components_links_createDynamicLinks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/links/createDynamicLinks */ "./src/js/components/links/createDynamicLinks.js");
 /* harmony import */ var _components_links_renderParamsLinks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/links/renderParamsLinks */ "./src/js/components/links/renderParamsLinks.js");
+/* harmony import */ var _components_data_fetchData__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/data/fetchData */ "./src/js/components/data/fetchData.js");
+/* harmony import */ var _components_form_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/form/form */ "./src/js/components/form/form.js");
 //imports
+
+
 
 
 
@@ -678,11 +739,6 @@ const featuredInner = document.querySelector('.featured__inner');
 const movieTopRated = document.querySelector('.top-movies__inner');
 const tvTopRated = document.querySelector('.top-shows__inner');
 const searchResults = document.querySelector('.form__results');
-async function fetchData(url) {
-  const res = await fetch(url);
-  const data = await res.json();
-  return data;
-}
 
 //fetching movies
 
@@ -712,27 +768,12 @@ if (body.dataset.page == 'home') {
       url,
       location
     } = dataObject;
-    fetchData(url).then(data => {
+    (0,_components_data_fetchData__WEBPACK_IMPORTED_MODULE_8__["default"])(url).then(data => {
       (0,_components_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, location);
       (0,_components_loader_removeLoader__WEBPACK_IMPORTED_MODULE_5__["default"])(loaders);
     });
   });
 }
-
-//search logic
-
-const form = document.querySelector('.form');
-const search = form.querySelector('.form__search');
-console.log(search);
-form.addEventListener('keyup', async e => {
-  const target = e.target;
-  if (target.value.length >= 3) {
-    const data = await fetchData(`https://api.themoviedb.org/3/search/multi?api_key=${_components_apikeys__WEBPACK_IMPORTED_MODULE_2__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
-    console.log(data.results);
-    searchResults.innerHTML = '';
-    (0,_components_form_renderFormDataList__WEBPACK_IMPORTED_MODULE_4__["default"])(data.results, searchResults);
-  }
-});
 
 //url and query params
 
@@ -746,7 +787,7 @@ if (body.dataset.page == 'featured') {
   //   history.pushState(null, null, '?page=1');
   // }
 
-  fetchData(featuredUrl).then(data => {
+  (0,_components_data_fetchData__WEBPACK_IMPORTED_MODULE_8__["default"])(featuredUrl).then(data => {
     (0,_components_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, featuredInner);
     const featured = document.querySelector('.featured');
     const title = featured.querySelector('.section-title');
