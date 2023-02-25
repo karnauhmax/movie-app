@@ -548,22 +548,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _genres_genresList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./genres/genresList */ "./src/js/components/genres/genresList.js");
 /* harmony import */ var _genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./genres/renderGenres */ "./src/js/components/genres/renderGenres.js");
 /* harmony import */ var _links_createDynamicLinks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./links/createDynamicLinks */ "./src/js/components/links/createDynamicLinks.js");
-/* harmony import */ var _links_linksList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./links/linksList */ "./src/js/components/links/linksList.js");
-/* harmony import */ var _links_renderParamsLinks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./links/renderParamsLinks */ "./src/js/components/links/renderParamsLinks.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module './links/determineType'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _links_linksList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./links/linksList */ "./src/js/components/links/linksList.js");
+/* harmony import */ var _links_renderParamsLinks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./links/renderParamsLinks */ "./src/js/components/links/renderParamsLinks.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module './clear/clearHTML'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+
+
 
 
 
 
 
 const loader = document.querySelectorAll('.loader');
-const renderDataList = (dataObj, filmsInner) => {
+const renderDataList = function (dataObj, filmsInner) {
+  let classList = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
   console.log(dataObj);
   loader.forEach(loader => {
     loader.classList.remove('active');
   });
   const genresList = document.querySelectorAll('.item__genres');
   const filmsList = dataObj.results;
-  filmsInner.innerHTML = '';
+  Object(function webpackMissingModule() { var e = new Error("Cannot find module './clear/clearHTML'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(filmsList);
   filmsList.forEach(film => {
     //destructuring
     const {
@@ -577,32 +582,15 @@ const renderDataList = (dataObj, filmsInner) => {
       known_for,
       id
     } = film;
-
-    //genres detecting
-    // const genresResult = [];
-    // if (genre_ids && genre_ids.length >= 1) {
-    //   genres.forEach(genreObj => {
-    //     genre_ids.forEach(item => {
-    //       if (item == genreObj.id) {
-    //         genresResult.push(genreObj.name);
-    //       }
-    //     });
-    //   });
-    // } else if (known_for && known_for.length >= 1) {
-    //   known_for.forEach(film => {
-    //     genresResult.push(film.title || film.name);
-    //   });
-    // }
-
     const genresResult = (0,_genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__["default"])(genre_ids, known_for);
 
     //rendering films/actors/movies by data
     filmsInner.insertAdjacentHTML('beforeend', `
-    <article class="item">
-      <a href="single.html?id=${id}" class="item__link">
-        <div href="#" class="item__img-wrapper">
+    <article class="item ${typeof classList === 'object' ? classList.join(' ') : classList}">
+      <a href="single.html?media=${Object(function webpackMissingModule() { var e = new Error("Cannot find module './links/determineType'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())(film)}&id=${id}" class="item__link">
+        <div class="item__img-wrapper">
             <div class="item__img ibg">
-                ${poster_path || profile_path ? `<img " src="https://image.tmdb.org/t/p/w200/${poster_path || profile_path}" class="skeleton-image" width="250" height="250"alt="">` : '<p>Oops :( Looks like image not found</p>'}
+                ${poster_path || profile_path ? `<img src="https://image.tmdb.org/t/p/w200/${poster_path || profile_path}" class="skeleton-image" width="250" height="250"alt="">` : '<p>Oops :( Looks like image not found</p>'}
                 </div>
               </div>
               <div class="item__info">
