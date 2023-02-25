@@ -251,7 +251,8 @@ form.addEventListener('submit', async e => {
   (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__["default"])(siteContent);
   const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_2__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${input.value}&language=en-US&page=1&include_adult=false`);
   search.classList.add('active');
-  (0,_renderDataList__WEBPACK_IMPORTED_MODULE_3__["default"])(data, searchInner, ['test', 'test2']);
+  siteContent.classList.add('hide');
+  (0,_renderDataList__WEBPACK_IMPORTED_MODULE_3__["default"])(data, searchInner, 'search__item');
 });
 
 /***/ }),
@@ -807,7 +808,7 @@ if (body.dataset.page == 'home') {
       location
     } = dataObject;
     (0,_components_data_fetchData__WEBPACK_IMPORTED_MODULE_8__["default"])(url).then(data => {
-      (0,_components_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, location);
+      (0,_components_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, location, 'data-section__item');
       (0,_components_loader_removeLoader__WEBPACK_IMPORTED_MODULE_5__["default"])(loaders);
     });
   });
@@ -826,7 +827,7 @@ if (body.dataset.page == 'featured') {
   // }
 
   (0,_components_data_fetchData__WEBPACK_IMPORTED_MODULE_8__["default"])(featuredUrl).then(data => {
-    (0,_components_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, featuredInner);
+    (0,_components_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, featuredInner, 'data-section__item');
     const featured = document.querySelector('.featured');
     const title = featured.querySelector('.section-title');
 

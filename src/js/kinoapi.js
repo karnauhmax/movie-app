@@ -39,7 +39,7 @@ if (body.dataset.page == 'home') {
     const { url, location } = dataObject;
 
     fetchData(url).then(data => {
-      renderDataList(data, location);
+      renderDataList(data, location, 'data-section__item');
       removeLoader(loaders);
     });
   });
@@ -61,7 +61,7 @@ if (body.dataset.page == 'featured') {
   // }
 
   fetchData(featuredUrl).then(data => {
-    renderDataList(data, featuredInner);
+    renderDataList(data, featuredInner, 'data-section__item');
 
     const featured = document.querySelector('.featured');
     const title = featured.querySelector('.section-title');

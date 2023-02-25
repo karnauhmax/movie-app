@@ -1,7 +1,8 @@
 .data-section {
   position: relative;
   padding-top: rem(50);
-  & .item {
+
+  &__item {
     flex: 1 0 200px;
     .item__img {
       padding-bottom: 134%;

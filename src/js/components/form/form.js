@@ -34,5 +34,6 @@ form.addEventListener('submit', async e => {
     `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${input.value}&language=en-US&page=1&include_adult=false`
   );
   search.classList.add('active');
-  renderDataList(data, searchInner, ['test', 'test2']);
+  siteContent.classList.add('hide');
+  renderDataList(data, searchInner, 'search__item');
 });
