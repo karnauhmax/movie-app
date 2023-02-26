@@ -268,12 +268,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _closeOutOfForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./closeOutOfForm */ "./src/js/components/form/closeOutOfForm.js");
+/* harmony import */ var _genres_renderGenres__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../genres/renderGenres */ "./src/js/components/genres/renderGenres.js");
+/* harmony import */ var _closeOutOfForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./closeOutOfForm */ "./src/js/components/form/closeOutOfForm.js");
+
 
 const formResults = document.querySelector('.form__results');
 const renderFormDataList = (arr, list) => {
   formResults.classList.add('active');
-  (0,_closeOutOfForm__WEBPACK_IMPORTED_MODULE_0__["default"])();
+  (0,_closeOutOfForm__WEBPACK_IMPORTED_MODULE_1__["default"])();
   arr.forEach(object => {
     const {
       name,
@@ -285,6 +287,7 @@ const renderFormDataList = (arr, list) => {
       genre_ids,
       known_for
     } = object;
+    const genres = (0,_genres_renderGenres__WEBPACK_IMPORTED_MODULE_0__["default"])(genre_ids, known_for);
     list.insertAdjacentHTML(`beforeend`, `
 
 
@@ -298,7 +301,7 @@ const renderFormDataList = (arr, list) => {
         <p>${vote_average ? 'Rating' : popularity ? 'Popularity' : ''}</p>
         <p>${vote_average ? vote_average : popularity ? popularity : 'N/A'}</p>
       </div>
-      <div class="form__result-genres">Horror Comedy Trash</div>
+      <div class="form__result-genres">${genres.join(', ')}</div>
       </a>
     </article>
 
