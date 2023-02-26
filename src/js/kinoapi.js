@@ -1,6 +1,6 @@
 //imports
 import renderDataList from './components/renderDataList';
-import { queryParam } from './components/pagination';
+import { queryParam } from './components/pagination/pagination';
 import { API, API_KEY } from './components/apikeys';
 import initPreloader from './components/preloader';
 import renderFormDataList from './components/form/renderFormDataList';
@@ -55,11 +55,6 @@ let featuredType = currentUrl.get('featured');
 const featuredUrl = `https://api.themoviedb.org/3/${mediaType}/${featuredType}?api_key=${API_KEY}&language=en-US&page=1`;
 
 if (body.dataset.page == 'featured') {
-  // if (!queryParam) {
-  //   queryParam = 1;
-  //   history.pushState(null, null, '?page=1');
-  // }
-
   fetchData(featuredUrl).then(data => {
     renderDataList(data, featuredInner, 'data-section__item');
 
