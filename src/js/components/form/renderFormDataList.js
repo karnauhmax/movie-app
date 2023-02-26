@@ -1,3 +1,4 @@
+import renderGenres from '../genres/renderGenres';
 import closeOutOfForm from './closeOutOfForm';
 const formResults = document.querySelector('.form__results');
 
@@ -16,6 +17,9 @@ const renderFormDataList = (arr, list) => {
       genre_ids,
       known_for
     } = object;
+
+    const genres = renderGenres(genre_ids, known_for);
+
     list.insertAdjacentHTML(
       `beforeend`,
       `
@@ -37,7 +41,7 @@ const renderFormDataList = (arr, list) => {
         <p>${vote_average ? 'Rating' : popularity ? 'Popularity' : ''}</p>
         <p>${vote_average ? vote_average : popularity ? popularity : 'N/A'}</p>
       </div>
-      <div class="form__result-genres">Horror Comedy Trash</div>
+      <div class="form__result-genres">${genres.join(', ')}</div>
       </a>
     </article>
 
