@@ -21,6 +21,7 @@ const renderFormDataList = (arr, list) => {
       `
 
 
+    <article class="item">
     <a href="#" class="form__result">
       <div class="form__result-img ibg item__img">
       ${
@@ -31,13 +32,14 @@ const renderFormDataList = (arr, list) => {
           : '<p>Oops :( Looks like image not found</p>'
       }
       </div>
-      <div class="form__result-title">${title || name}</div>
+      <h2 class="form__result-title">${title || name}</h2>
       <div class="form__result-rating">
         <p>${vote_average ? 'Rating' : popularity ? 'Popularity' : ''}</p>
         <p>${vote_average ? vote_average : popularity ? popularity : 'N/A'}</p>
       </div>
-<div class="form__result-genres">Horror Comedy Trash</div>
-</a>
+      <div class="form__result-genres">Horror Comedy Trash</div>
+      </a>
+    </article>
 
     `
     );

@@ -6,6 +6,12 @@
   &.active {
     display: block;
   }
+
+  &__item {
+    .item__img {
+      padding-bottom: 134%;
+    }
+  }
   &__inner {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(rem(250), 1fr));
