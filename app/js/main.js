@@ -10,7 +10,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_preloader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/preloader */ "./src/js/components/preloader.js");
-/* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pagination */ "./src/js/components/pagination.js");
+/* harmony import */ var _components_pagination_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pagination/pagination */ "./src/js/components/pagination/pagination.js");
 /* harmony import */ var _components_sliders__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/sliders */ "./src/js/components/sliders.js");
 
 
@@ -488,7 +488,8 @@ const linksList = [{
   page: 'featured.html',
   params: {
     featured: 'popular',
-    media: 'tv'
+    media: 'tv',
+    page: 1
   },
   parentSelector: '.tv__heading',
   text: 'Show All'
@@ -497,7 +498,8 @@ const linksList = [{
   page: 'featured.html',
   params: {
     featured: 'top_rated',
-    media: 'tv'
+    media: 'tv',
+    page: 1
   },
   parentSelector: '.top-shows__heading',
   text: 'Show All'
@@ -506,7 +508,8 @@ const linksList = [{
   page: 'featured.html',
   params: {
     featured: 'popular',
-    media: 'movie'
+    media: 'movie',
+    page: 1
   },
   parentSelector: '.films__heading',
   text: 'Show All'
@@ -515,7 +518,8 @@ const linksList = [{
   page: 'featured.html',
   params: {
     featured: 'top_rated',
-    media: 'movie'
+    media: 'movie',
+    page: 1
   },
   parentSelector: '.top-movies__heading',
   text: 'Show All'
@@ -575,10 +579,10 @@ const removeLoader = pageLoader => {
 
 /***/ }),
 
-/***/ "./src/js/components/pagination.js":
-/*!*****************************************!*\
-  !*** ./src/js/components/pagination.js ***!
-  \*****************************************/
+/***/ "./src/js/components/pagination/pagination.js":
+/*!****************************************************!*\
+  !*** ./src/js/components/pagination/pagination.js ***!
+  \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -595,17 +599,8 @@ const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop)
 });
 let queryParam = params.page;
-const total = 100;
-const pages = Math.ceil(total / 10);
-for (let i = pages; i >= 1; i--) {
-  paginationList.forEach(el => {
-    el.insertAdjacentHTML('afterbegin', `
-    <li class="pagination__item ${i == queryParam ? 'active' : ''}">
-        <a href="featured.html?featured=popular&page=1" class="pagination__btn">${i}</a>
-      </li>
-    `);
-  });
-}
+let page = 1;
+paginationList.forEach(pagination => {});
 
 
 /***/ }),
@@ -751,7 +746,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_renderDataList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/renderDataList */ "./src/js/components/renderDataList.js");
-/* harmony import */ var _components_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pagination */ "./src/js/components/pagination.js");
+/* harmony import */ var _components_pagination_pagination__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/pagination/pagination */ "./src/js/components/pagination/pagination.js");
 /* harmony import */ var _components_apikeys__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/apikeys */ "./src/js/components/apikeys.js");
 /* harmony import */ var _components_preloader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/preloader */ "./src/js/components/preloader.js");
 /* harmony import */ var _components_form_renderFormDataList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/form/renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
@@ -824,11 +819,6 @@ let mediaType = currentUrl.get('media');
 let featuredType = currentUrl.get('featured');
 const featuredUrl = `https://api.themoviedb.org/3/${mediaType}/${featuredType}?api_key=${_components_apikeys__WEBPACK_IMPORTED_MODULE_2__.API_KEY}&language=en-US&page=1`;
 if (body.dataset.page == 'featured') {
-  // if (!queryParam) {
-  //   queryParam = 1;
-  //   history.pushState(null, null, '?page=1');
-  // }
-
   (0,_components_data_fetchData__WEBPACK_IMPORTED_MODULE_8__["default"])(featuredUrl).then(data => {
     (0,_components_renderDataList__WEBPACK_IMPORTED_MODULE_0__["default"])(data, featuredInner, 'data-section__item');
     const featured = document.querySelector('.featured');

@@ -165,7 +165,7 @@ main {
 }
 
 .section-title {
-  @include adaptiveValue(font-size, 40, 20, 1920, 360, 1);
+  @include adaptiveValue(font-size, 40, 25, 1920, 360, 1);
   font-weight: 900;
 }
 

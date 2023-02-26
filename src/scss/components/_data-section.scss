@@ -72,7 +72,7 @@
       position: relative;
 
       @include mobile {
-        grid-template-columns: repeat(auto-fill, minmax(rem(200), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(rem(160), 1fr));
       }
     }
 
