@@ -29,6 +29,7 @@
 
   &__name {
     align-self: start;
+    @include adaptiveValue(font-size, 24, 18, 1920, 360, 1);
   }
 
   &__rating {

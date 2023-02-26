@@ -1,3 +1,3 @@
 import './components/preloader';
-import './components/pagination';
+import './components/pagination/pagination';
 import './components/sliders';
