@@ -41,7 +41,7 @@ const renderFormDataList = (arr, list) => {
         <p>${vote_average ? 'Rating' : popularity ? 'Popularity' : ''}</p>
         <p>${vote_average ? vote_average : popularity ? popularity : 'N/A'}</p>
       </div>
-      <div class="form__result-genres">${genres.join(', ')}</div>
+      <div class="form__result-genres">${genres.join('')}</div>
       </a>
     </article>
 
