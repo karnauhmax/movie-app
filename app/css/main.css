@@ -1041,7 +1041,7 @@ main {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  gap: 1.25rem;
+  gap: 0.625rem;
   -ms-flex-item-align: end;
   -ms-grid-row-align: end;
   align-self: end;

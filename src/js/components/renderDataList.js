@@ -5,14 +5,19 @@ import determineType from './links/determineType';
 import linksList from './links/linksList';
 import renderParamsLinks from './links/renderParamsLinks';
 import clearHTML from './clear/clearHTML';
+import formatGenres from './genres/formatGenres';
+
 const loader = document.querySelectorAll('.loader');
+
 const renderDataList = (dataObj, filmsInner, classList = '') => {
   console.log(dataObj);
   loader.forEach(loader => {
     loader.classList.remove('active');
   });
+
   const genresList = document.querySelectorAll('.item__genres');
   const filmsList = dataObj.results;
+
   clearHTML(filmsList);
   filmsList.forEach(film => {
     //destructuring
@@ -29,6 +34,9 @@ const renderDataList = (dataObj, filmsInner, classList = '') => {
     } = film;
 
     const genresResult = renderGenres(genre_ids, known_for);
+    const formattedGenres = genresResult.map(genre => `<span>${genre}</span>`);
+
+    console.log(formattedGenres);
 
     //rendering films/actors/movies by data
     filmsInner.insertAdjacentHTML(
@@ -56,7 +64,7 @@ const renderDataList = (dataObj, filmsInner, classList = '') => {
                   ${title || name}
               </h2>
               <div class="item__genres">
-                  ${genresResult.join(', ')}
+                  ${formatGenres(genresResult, ['test2', 'test4'])}
               </div>
               <div class="item__rating">
               <span>${

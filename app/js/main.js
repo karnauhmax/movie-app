@@ -301,7 +301,7 @@ const renderFormDataList = (arr, list) => {
         <p>${vote_average ? 'Rating' : popularity ? 'Popularity' : ''}</p>
         <p>${vote_average ? vote_average : popularity ? popularity : 'N/A'}</p>
       </div>
-      <div class="form__result-genres">${genres.join(', ')}</div>
+      <div class="form__result-genres">${genres.join('')}</div>
       </a>
     </article>
 
@@ -309,6 +309,26 @@ const renderFormDataList = (arr, list) => {
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (renderFormDataList);
+
+/***/ }),
+
+/***/ "./src/js/components/genres/formatGenres.js":
+/*!**************************************************!*\
+  !*** ./src/js/components/genres/formatGenres.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const formatGenres = function (arr) {
+  let className = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  const classList = Array.isArray(className) ? className.join(' ') : className;
+  return arr.map(genre => `<span ${classList ? `class="${classList}"` : ''}>${genre}</span>`).join(' ');
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (formatGenres);
 
 /***/ }),
 
@@ -662,6 +682,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _links_linksList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./links/linksList */ "./src/js/components/links/linksList.js");
 /* harmony import */ var _links_renderParamsLinks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./links/renderParamsLinks */ "./src/js/components/links/renderParamsLinks.js");
 /* harmony import */ var _clear_clearHTML__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./clear/clearHTML */ "./src/js/components/clear/clearHTML.js");
+/* harmony import */ var _genres_formatGenres__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./genres/formatGenres */ "./src/js/components/genres/formatGenres.js");
+
 
 
 
@@ -693,6 +715,8 @@ const renderDataList = function (dataObj, filmsInner) {
       id
     } = film;
     const genresResult = (0,_genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__["default"])(genre_ids, known_for);
+    const formattedGenres = genresResult.map(genre => `<span>${genre}</span>`);
+    console.log(formattedGenres);
 
     //rendering films/actors/movies by data
     filmsInner.insertAdjacentHTML('beforeend', `
@@ -708,7 +732,7 @@ const renderDataList = function (dataObj, filmsInner) {
                   ${title || name}
               </h2>
               <div class="item__genres">
-                  ${genresResult.join(', ')}
+                  ${(0,_genres_formatGenres__WEBPACK_IMPORTED_MODULE_7__["default"])(genresResult, ['test2', 'test4'])}
               </div>
               <div class="item__rating">
               <span>${vote_average ? 'Rating' : popularity ? 'Popularity' : ''}</span>
