@@ -1,6 +1,7 @@
 //search logic
 import { API, API_KEY } from '../apikeys';
 import clearHTML from '../clear/clearHTML';
+import closeOutOfClick from '../closeOutOfClick';
 import fetchData from '../data/fetchData';
 import renderDataList from '../renderDataList';
 import renderFormDataList from './renderFormDataList';

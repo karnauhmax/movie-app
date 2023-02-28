@@ -160,6 +160,28 @@ const clearHTML = element => {
 
 /***/ }),
 
+/***/ "./src/js/components/closeOutOfClick.js":
+/*!**********************************************!*\
+  !*** ./src/js/components/closeOutOfClick.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const closeOutOfClick = element => {
+  document.addEventListener('click', e => {
+    if (document.querySelector(element) && !e.target.closest(element)) {
+      document.querySelector(element).classList.remove('active');
+    }
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (closeOutOfClick);
+
+/***/ }),
+
 /***/ "./src/js/components/data/fetchData.js":
 /*!*********************************************!*\
   !*** ./src/js/components/data/fetchData.js ***!
@@ -184,29 +206,6 @@ const fetchData = async url => {
 
 /***/ }),
 
-/***/ "./src/js/components/form/closeOutOfForm.js":
-/*!**************************************************!*\
-  !*** ./src/js/components/form/closeOutOfForm.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-const closeOutOfForm = () => {
-  const formResults = document.querySelector('.form__results');
-  document.addEventListener('click', e => {
-    if (formResults && !e.target.closest('.form__results')) {
-      formResults.classList.remove('active');
-    }
-  });
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (closeOutOfForm);
-
-/***/ }),
-
 /***/ "./src/js/components/form/form.js":
 /*!****************************************!*\
   !*** ./src/js/components/form/form.js ***!
@@ -217,10 +216,12 @@ const closeOutOfForm = () => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apikeys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../apikeys */ "./src/js/components/apikeys.js");
 /* harmony import */ var _clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../clear/clearHTML */ "./src/js/components/clear/clearHTML.js");
-/* harmony import */ var _data_fetchData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data/fetchData */ "./src/js/components/data/fetchData.js");
-/* harmony import */ var _renderDataList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../renderDataList */ "./src/js/components/renderDataList.js");
-/* harmony import */ var _renderFormDataList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
+/* harmony import */ var _closeOutOfClick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../closeOutOfClick */ "./src/js/components/closeOutOfClick.js");
+/* harmony import */ var _data_fetchData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../data/fetchData */ "./src/js/components/data/fetchData.js");
+/* harmony import */ var _renderDataList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../renderDataList */ "./src/js/components/renderDataList.js");
+/* harmony import */ var _renderFormDataList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
 //search logic
+
 
 
 
@@ -237,10 +238,10 @@ console.log(searchInner);
 form.addEventListener('keyup', async e => {
   const target = e.target;
   if (target.value.length >= 3) {
-    const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_2__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
+    const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_3__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
     console.log(data.results);
     (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__["default"])(searchResults);
-    (0,_renderFormDataList__WEBPACK_IMPORTED_MODULE_4__["default"])(data.results, searchResults);
+    (0,_renderFormDataList__WEBPACK_IMPORTED_MODULE_5__["default"])(data.results, searchResults);
   }
 });
 
@@ -249,10 +250,10 @@ form.addEventListener('submit', async e => {
   e.preventDefault();
   const input = form.querySelector('.form__search');
   (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__["default"])(siteContent);
-  const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_2__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${input.value}&language=en-US&page=1&include_adult=false`);
+  const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_3__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${input.value}&language=en-US&page=1&include_adult=false`);
   search.classList.add('active');
   siteContent.classList.add('hide');
-  (0,_renderDataList__WEBPACK_IMPORTED_MODULE_3__["default"])(data, searchInner, 'search__item');
+  (0,_renderDataList__WEBPACK_IMPORTED_MODULE_4__["default"])(data, searchInner, 'search__item');
 });
 
 /***/ }),
@@ -268,14 +269,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _genres_renderGenres__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../genres/renderGenres */ "./src/js/components/genres/renderGenres.js");
-/* harmony import */ var _closeOutOfForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./closeOutOfForm */ "./src/js/components/form/closeOutOfForm.js");
+/* harmony import */ var _closeOutOfClick__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../closeOutOfClick */ "./src/js/components/closeOutOfClick.js");
+/* harmony import */ var _genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../genres/renderGenres */ "./src/js/components/genres/renderGenres.js");
 
 
 const formResults = document.querySelector('.form__results');
 const renderFormDataList = (arr, list) => {
   formResults.classList.add('active');
-  (0,_closeOutOfForm__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  (0,_closeOutOfClick__WEBPACK_IMPORTED_MODULE_0__["default"])('.form__results');
   arr.forEach(object => {
     const {
       name,
@@ -287,7 +288,7 @@ const renderFormDataList = (arr, list) => {
       genre_ids,
       known_for
     } = object;
-    const genres = (0,_genres_renderGenres__WEBPACK_IMPORTED_MODULE_0__["default"])(genre_ids, known_for);
+    const genres = (0,_genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__["default"])(genre_ids, known_for);
     list.insertAdjacentHTML(`beforeend`, `
 
 

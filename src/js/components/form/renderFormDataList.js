@@ -1,10 +1,10 @@
+import closeOutOfClick from '../closeOutOfClick';
 import renderGenres from '../genres/renderGenres';
-import closeOutOfForm from './closeOutOfForm';
 const formResults = document.querySelector('.form__results');
 
 const renderFormDataList = (arr, list) => {
   formResults.classList.add('active');
-  closeOutOfForm();
+  closeOutOfClick('.form__results');
 
   arr.forEach(object => {
     const {
