@@ -172,8 +172,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 const closeOutOfClick = element => {
+  const elementOnPage = document.querySelector(element);
+  console.log(elementOnPage);
   document.addEventListener('click', e => {
-    if (document.querySelector(element) && !e.target.closest(element)) {
+    if (!e.target.closest(element) && elementOnPage.classList.contains('active')) {
       document.querySelector(element).classList.remove('active');
     }
   });
@@ -216,12 +218,10 @@ const fetchData = async url => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apikeys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../apikeys */ "./src/js/components/apikeys.js");
 /* harmony import */ var _clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../clear/clearHTML */ "./src/js/components/clear/clearHTML.js");
-/* harmony import */ var _closeOutOfClick__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../closeOutOfClick */ "./src/js/components/closeOutOfClick.js");
-/* harmony import */ var _data_fetchData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../data/fetchData */ "./src/js/components/data/fetchData.js");
-/* harmony import */ var _renderDataList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../renderDataList */ "./src/js/components/renderDataList.js");
-/* harmony import */ var _renderFormDataList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
+/* harmony import */ var _data_fetchData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data/fetchData */ "./src/js/components/data/fetchData.js");
+/* harmony import */ var _renderDataList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../renderDataList */ "./src/js/components/renderDataList.js");
+/* harmony import */ var _renderFormDataList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./renderFormDataList */ "./src/js/components/form/renderFormDataList.js");
 //search logic
-
 
 
 
@@ -232,28 +232,36 @@ const form = document.querySelector('.form');
 const searchInner = search.querySelector('.search__inner');
 const searchResults = form.querySelector('.form__results');
 const siteContent = document.querySelector('.site-content');
-console.log(searchInner);
+const tooltip = document.querySelector('.form__tooltip');
+const input = form.querySelector('.form__search');
 
 //input logic
 form.addEventListener('keyup', async e => {
   const target = e.target;
-  if (target.value.length >= 3) {
-    const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_3__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
-    console.log(data.results);
-    (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__["default"])(searchResults);
-    (0,_renderFormDataList__WEBPACK_IMPORTED_MODULE_5__["default"])(data.results, searchResults);
-  }
+  const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_2__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${target.value}&language=en-US&page=1&include_adult=false`);
+  (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__["default"])(searchResults);
+  (0,_renderFormDataList__WEBPACK_IMPORTED_MODULE_4__["default"])(data.results, searchResults);
+  if (tooltip.classList.contains('active')) tooltip.classList.remove('active');
 });
 
 //submit logic
 form.addEventListener('submit', async e => {
   e.preventDefault();
-  const input = form.querySelector('.form__search');
-  (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__["default"])(siteContent);
-  const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_3__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${input.value}&language=en-US&page=1&include_adult=false`);
-  search.classList.add('active');
-  siteContent.classList.add('hide');
-  (0,_renderDataList__WEBPACK_IMPORTED_MODULE_4__["default"])(data, searchInner, 'search__item');
+  if (input.value && input.value !== '') {
+    (0,_clear_clearHTML__WEBPACK_IMPORTED_MODULE_1__["default"])(siteContent);
+    const data = await (0,_data_fetchData__WEBPACK_IMPORTED_MODULE_2__["default"])(`https://api.themoviedb.org/3/search/multi?api_key=${_apikeys__WEBPACK_IMPORTED_MODULE_0__.API_KEY}&query=${input.value}&language=en-US&page=1&include_adult=false`);
+    search.classList.add('active');
+    siteContent.classList.add('hide');
+    (0,_renderDataList__WEBPACK_IMPORTED_MODULE_3__["default"])(data, searchInner, 'search__item');
+  } else {
+    tooltip.classList.add('active');
+  }
+});
+form.addEventListener('click', e => {
+  if (!searchResults.classList.contains('active') && input.value) {
+    searchResults.classList.add('active');
+    console.log(2);
+  }
 });
 
 /***/ }),
@@ -270,13 +278,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _closeOutOfClick__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../closeOutOfClick */ "./src/js/components/closeOutOfClick.js");
-/* harmony import */ var _genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../genres/renderGenres */ "./src/js/components/genres/renderGenres.js");
+/* harmony import */ var _genres_formatGenres__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../genres/formatGenres */ "./src/js/components/genres/formatGenres.js");
+/* harmony import */ var _genres_renderGenres__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../genres/renderGenres */ "./src/js/components/genres/renderGenres.js");
+
 
 
 const formResults = document.querySelector('.form__results');
 const renderFormDataList = (arr, list) => {
   formResults.classList.add('active');
-  (0,_closeOutOfClick__WEBPACK_IMPORTED_MODULE_0__["default"])('.form__results');
   arr.forEach(object => {
     const {
       name,
@@ -288,12 +297,12 @@ const renderFormDataList = (arr, list) => {
       genre_ids,
       known_for
     } = object;
-    const genres = (0,_genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__["default"])(genre_ids, known_for);
+    const genres = (0,_genres_renderGenres__WEBPACK_IMPORTED_MODULE_2__["default"])(genre_ids, known_for);
     list.insertAdjacentHTML(`beforeend`, `
 
 
     <article class="item">
-    <a href="#" class="form__result">
+    <a href="#" class="form__result item__link">
       <div class="form__result-img ibg item__img">
       ${poster_path || profile_path ? `<img src="https://image.tmdb.org/t/p/w200/${poster_path || profile_path}" class="skeleton-image" width="232" height="116"alt="">` : '<p>Oops :( Looks like image not found</p>'}
       </div>
@@ -302,7 +311,7 @@ const renderFormDataList = (arr, list) => {
         <p>${vote_average ? 'Rating' : popularity ? 'Popularity' : ''}</p>
         <p>${vote_average ? vote_average : popularity ? popularity : 'N/A'}</p>
       </div>
-      <div class="form__result-genres">${genres.join('')}</div>
+      <div class="form__result-genres item__genres">${(0,_genres_formatGenres__WEBPACK_IMPORTED_MODULE_1__["default"])(genres)}</div>
       </a>
     </article>
 
@@ -695,7 +704,6 @@ __webpack_require__.r(__webpack_exports__);
 const loader = document.querySelectorAll('.loader');
 const renderDataList = function (dataObj, filmsInner) {
   let classList = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  console.log(dataObj);
   loader.forEach(loader => {
     loader.classList.remove('active');
   });
@@ -717,7 +725,6 @@ const renderDataList = function (dataObj, filmsInner) {
     } = film;
     const genresResult = (0,_genres_renderGenres__WEBPACK_IMPORTED_MODULE_1__["default"])(genre_ids, known_for);
     const formattedGenres = genresResult.map(genre => `<span>${genre}</span>`);
-    console.log(formattedGenres);
 
     //rendering films/actors/movies by data
     filmsInner.insertAdjacentHTML('beforeend', `

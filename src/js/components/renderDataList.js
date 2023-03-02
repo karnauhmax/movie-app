@@ -10,7 +10,6 @@ import formatGenres from './genres/formatGenres';
 const loader = document.querySelectorAll('.loader');
 
 const renderDataList = (dataObj, filmsInner, classList = '') => {
-  console.log(dataObj);
   loader.forEach(loader => {
     loader.classList.remove('active');
   });
@@ -35,8 +34,6 @@ const renderDataList = (dataObj, filmsInner, classList = '') => {
 
     const genresResult = renderGenres(genre_ids, known_for);
     const formattedGenres = genresResult.map(genre => `<span>${genre}</span>`);
-
-    console.log(formattedGenres);
 
     //rendering films/actors/movies by data
     filmsInner.insertAdjacentHTML(

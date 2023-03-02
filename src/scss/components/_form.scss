@@ -53,9 +53,6 @@
   }
 
   &__result {
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: rem(10);
     padding-bottom: rem(20);
     &-img {
       border-radius: var(--radius-primary);
@@ -98,5 +95,25 @@
     text-transform: uppercase;
     transform: translate(-50%, -50%);
     text-align: center;
+  }
+
+  &__tooltip {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: center;
+    gap: rem(10);
+    border-radius: var(--radius-primary);
+    padding: rem(10);
+    width: 100%;
+    min-height: 50px;
+    background-color: var(--primary);
+    @include adaptiveValue(font-size, 16, 14, 1920, 360, 1);
+    transform: translateY(-100%);
+    transition: 0.2s transform ease;
+
+    &.active {
+      transform: translateY(130%);
+    }
   }
 }
