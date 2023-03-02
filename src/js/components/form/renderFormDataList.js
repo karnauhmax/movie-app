@@ -6,7 +6,6 @@ const formResults = document.querySelector('.form__results');
 
 const renderFormDataList = (arr, list) => {
   formResults.classList.add('active');
-
   arr.forEach(object => {
     const {
       name,
