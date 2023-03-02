@@ -1,11 +1,11 @@
 import closeOutOfClick from '../closeOutOfClick';
+import formatGenres from '../genres/formatGenres';
 import renderGenres from '../genres/renderGenres';
+
 const formResults = document.querySelector('.form__results');
 
 const renderFormDataList = (arr, list) => {
   formResults.classList.add('active');
-  closeOutOfClick('.form__results');
-
   arr.forEach(object => {
     const {
       name,
@@ -26,7 +26,7 @@ const renderFormDataList = (arr, list) => {
 
 
     <article class="item">
-    <a href="#" class="form__result">
+    <a href="#" class="form__result item__link">
       <div class="form__result-img ibg item__img">
       ${
         poster_path || profile_path
@@ -41,7 +41,9 @@ const renderFormDataList = (arr, list) => {
         <p>${vote_average ? 'Rating' : popularity ? 'Popularity' : ''}</p>
         <p>${vote_average ? vote_average : popularity ? popularity : 'N/A'}</p>
       </div>
-      <div class="form__result-genres">${genres.join('')}</div>
+      <div class="form__result-genres item__genres">${formatGenres(
+        genres
+      )}</div>
       </a>
     </article>
 

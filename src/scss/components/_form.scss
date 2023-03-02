@@ -50,12 +50,24 @@
     &.active {
       display: grid;
     }
+
+    &.not-found {
+      min-height: rem(250);
+    }
+
+    .not-found__text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: rem(22);
+      transform: translate(-50%, -50%);
+      font-weight: 700;
+      width: 100%;
+      text-align: center;
+    }
   }
 
   &__result {
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: rem(10);
     padding-bottom: rem(20);
     &-img {
       border-radius: var(--radius-primary);
@@ -98,5 +110,29 @@
     text-transform: uppercase;
     transform: translate(-50%, -50%);
     text-align: center;
+  }
+
+  &__tooltip {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    align-items: center;
+    gap: rem(10);
+    border-radius: var(--radius-primary);
+    padding: rem(10);
+    width: 100%;
+    min-height: 50px;
+    background-color: var(--primary);
+    @include adaptiveValue(font-size, 16, 14, 1920, 360, 1);
+    transform: translateY(-100%);
+    transition: 0.2s all ease;
+    visibility: hidden;
+    opacity: 0;
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(130%);
+    }
   }
 }
